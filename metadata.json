@@ -1,0 +1,6 @@
+{
+  "name": "EduGrade v1.0 — Platform Analytics & Student Tools",
+  "description": "Platform digital edukasi cerdas untuk siswa SMA/K menganalisis nilai rapor, tryout TKA, UTBK, rasionalisasi PTN, dan tools produktivitas belajar untuk lomba INVENTION 2026.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

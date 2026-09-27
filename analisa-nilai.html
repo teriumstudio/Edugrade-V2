@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analisis Nilai — EduGrade v1.0 | Platform Analytics & Student Tools</title>
+  <meta name="description" content="Analisis Nilai Rapor, Tryout TKA, Tryout UTBK, dan Rasionalisasi PTN SNBP & SNBT EduGrade v1.0 INVENTION 2026.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              500: '#0066FF',
+              600: '#0052cc',
+              700: '#0041a8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#F0F4F9] dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200">
+
+  <!-- WRAPPER UTAMA DENGAN SOLID PRIMARY SIDEBAR -->
+  <div class="flex flex-1 min-h-screen">
+
+    <!-- DESKTOP PRIMARY SIDEBAR (#0066FF) -->
+    <aside class="hidden lg:flex w-72 bg-[#0066FF] flex-col justify-between p-6 text-white shadow-xl z-30">
+      <div>
+        <!-- BRAND LOGO -->
+        <div class="flex items-center space-x-3 mb-8">
+          <div class="w-11 h-11 bg-white text-[#0066FF] rounded-2xl flex items-center justify-center text-xl font-black shadow-md">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-xl font-extrabold tracking-tight">EduGrade</span>
+              <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">v1.0</span>
+            </div>
+            <p class="text-[11px] text-blue-100/80 font-medium">INVENTION 2026</p>
+          </div>
+        </div>
+
+        <!-- BADGE SUBTEMA LOMBA -->
+        <div class="bg-white/10 rounded-xl p-3 mb-6 border border-white/10">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200 block mb-0.5">Subtema Lomba</span>
+          <p class="text-xs text-blue-50 font-medium leading-snug">"Building Smarter Communities Through Digital Learning"</p>
+        </div>
+
+        <!-- MENU UTAMA NAVIGASI -->
+        <nav class="space-y-1.5" aria-label="Menu Utama">
+          <!-- 1. Dashboard -->
+          <a href="dashboard.html" data-page="dashboard" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-chart-pie w-5 text-center mr-3"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <!-- 2. Analisis Nilai (Aktif) -->
+          <a href="analisa-nilai.html" data-page="analisa" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 font-bold bg-white text-[#0066FF] shadow-sm">
+            <i class="fa-solid fa-chart-line w-5 text-center mr-3"></i>
+            <span>Analisis Nilai</span>
+          </a>
+
+          <!-- 3. Alat Pelajar -->
+          <a href="alat-pelajar.html" data-page="alat" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-toolbox w-5 text-center mr-3"></i>
+            <span>Alat Pelajar</span>
+          </a>
+
+          <div class="pt-4 pb-2 border-t border-white/15 my-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200/80 px-4">Pengaturan & Bantuan</span>
+          </div>
+
+          <!-- 4. Setting (Membuka Modal Setting) -->
+          <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-gear w-5 text-center mr-3"></i>
+            <span>Setting</span>
+          </button>
+
+          <!-- 5. Guide (Membuka Modal Guide) -->
+          <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-circle-question w-5 text-center mr-3"></i>
+            <span>Guide</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- FOOTER SIDEBAR -->
+      <div class="pt-4 border-t border-white/15 text-[11px] text-blue-200/70">
+        <p class="font-medium text-white/90">EduGrade v1.0 Platform</p>
+        <p>SNPMB Kemendikbudristek Data Engine</p>
+      </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR DRAWER -->
+    <div id="mobile-sidebar-drawer" class="fixed inset-0 z-50 hidden">
+      <div id="mobile-sidebar-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+      <div class="relative w-72 max-w-[80vw] h-full bg-[#0066FF] text-white p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 bg-white text-[#0066FF] rounded-xl flex items-center justify-center text-lg font-black">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <span class="text-lg font-bold">EduGrade v1.0</span>
+                <p class="text-[10px] text-blue-100/80">INVENTION 2026</p>
+              </div>
+            </div>
+            <button id="btn-close-mobile-menu" class="p-2 text-white/80 hover:text-white">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-chart-pie w-5 mr-3"></i>Dashboard
+            </a>
+            <a href="analisa-nilai.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-bold bg-white text-[#0066FF]">
+              <i class="fa-solid fa-chart-line w-5 mr-3"></i>Analisis Nilai
+            </a>
+            <a href="alat-pelajar.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-toolbox w-5 mr-3"></i>Alat Pelajar
+            </a>
+            <div class="pt-3 border-t border-white/15 my-2"></div>
+            <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-gear w-5 mr-3"></i>Setting
+            </button>
+            <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-circle-question w-5 mr-3"></i>Guide
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CANVAS AREA (#F0F4F9) -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+      <!-- HEADER GLOBAL (Berlaku di Semua Halaman Utama) -->
+      <header class="sticky top-0 z-20 bg-[#F0F4F9]/90 dark:bg-[#0b1329]/90 backdrop-blur-md px-6 lg:px-10 py-4 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+          <!-- Pojok Kiri: Teks Nama Halaman Aktif -->
+          <div class="flex items-center space-x-3">
+            <button id="btn-toggle-mobile-menu" class="lg:hidden p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <i class="fa-solid fa-bars text-base"></i>
+            </button>
+            <div>
+              <span class="text-lg lg:text-xl font-black tracking-tight text-slate-800 dark:text-white">[Analisis Nilai]</span>
+              <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Pemetaan Rapor, TKA, UTBK & Rasionalisasi PTN</p>
+            </div>
+          </div>
+
+          <!-- Pojok Kanan: Floating Card Profile -->
+          <div class="flex items-center space-x-3">
+            <button data-modal-trigger="setting" class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#0066FF] shadow-xs" title="Pengaturan Akun & Tema">
+              <i class="fa-solid fa-sliders text-sm"></i>
+            </button>
+
+            <div data-modal-trigger="setting" class="cursor-pointer flex items-center space-x-3 bg-white dark:bg-slate-800 px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:shadow-md transition-shadow">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar Siswa" class="header-user-avatar w-9 h-9 rounded-full object-cover ring-2 ring-[#0066FF]/20">
+              <div class="text-left hidden sm:block">
+                <h4 class="header-user-name text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight">Bhisma</h4>
+                <p class="header-user-class text-[11px] font-semibold text-[#0066FF] dark:text-blue-400 leading-tight">XII IPA</p>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY ANALISIS NILAI -->
+      <div class="flex-1 px-6 lg:px-10 py-6 max-w-6xl mx-auto w-full space-y-6">
+
+        <!-- SUB-TAB NAVIGASI ATAS: [Semua] | [Analisis Nilai Rapor] | [Analisis Nilai TKA] | [Analisis Nilai UTBK] | [Rasionalisasi PTN] -->
+        <div class="bg-white dark:bg-slate-800 p-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs flex overflow-x-auto scrollbar-none gap-1.5">
+          <button id="tab-nav-semua" class="sub-nav-tab flex-1 min-w-[100px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-center whitespace-nowrap active bg-[#0066FF] text-white shadow-sm font-bold" data-tab="semua">
+            [Semua]
+          </button>
+          <button id="tab-nav-rapor" class="sub-nav-tab flex-1 min-w-[150px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-center whitespace-nowrap text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="rapor">
+            [Analisis Nilai Rapor]
+          </button>
+          <button id="tab-nav-tka" class="sub-nav-tab flex-1 min-w-[140px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-center whitespace-nowrap text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="tka">
+            [Analisis Nilai TKA]
+          </button>
+          <button id="tab-nav-utbk" class="sub-nav-tab flex-1 min-w-[150px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-center whitespace-nowrap text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="utbk">
+            [Analisis Nilai UTBK]
+          </button>
+          <button id="tab-nav-rasionalisasi" class="sub-nav-tab flex-1 min-w-[140px] py-2.5 px-3 rounded-xl text-xs sm:text-sm font-semibold transition-all text-center whitespace-nowrap text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="rasionalisasi">
+            [Rasionalisasi PTN]
+          </button>
+        </div>
+
+        <!-- ========================================================
+             TAB 1: SEMUA (Insight Gabungan)
+             ======================================================== -->
+        <section id="tab-section-semua" class="tab-content-section space-y-6">
+          <!-- Metric Summary Cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Rata-Rata Rapor (Sem 1-5)</span>
+              <div class="flex items-baseline space-x-2">
+                <span id="summary-rapor-avg" class="text-3xl font-black text-slate-800 dark:text-white">93.4</span>
+                <span class="text-xs text-emerald-600 font-bold">&ge; KKM 75</span>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Prediksi Nilai TKA Next</span>
+              <div class="flex items-baseline space-x-2">
+                <span id="summary-tka-pred" class="text-3xl font-black text-[#0066FF] dark:text-blue-400">760</span>
+                <span class="text-xs text-slate-400 font-semibold">Poin</span>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Prediksi Nilai UTBK Next</span>
+              <div class="flex items-baseline space-x-2">
+                <span id="summary-utbk-pred" class="text-3xl font-black text-slate-800 dark:text-white">750</span>
+                <span class="text-xs text-slate-400 font-semibold">Poin</span>
+              </div>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Indeks Kesiapan Akademik</span>
+              <div class="flex items-baseline space-x-2">
+                <span id="summary-readiness" class="text-3xl font-black text-emerald-600 dark:text-emerald-400">84.5%</span>
+                <span class="text-xs text-slate-400 font-semibold">Komposit</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Tren Capaian Nilai Semester 1–5 -->
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-base font-bold text-slate-800 dark:text-white">Tren Perkembangan Rata-Rata Rapor per Semester</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Distribusi rata-rata nilai seluruh mata pelajaran dari Semester 1 hingga 5</p>
+              </div>
+              <span class="text-xs px-2.5 py-1 rounded-full bg-blue-50 text-[#0066FF] dark:bg-blue-900/40 dark:text-blue-300 font-bold">
+                Kurikulum Merdeka
+              </span>
+            </div>
+
+            <div id="semester-trend-bars" class="flex items-end justify-between gap-4 pt-4 pb-2">
+              <!-- Injected via analisa-nilai.js -->
+            </div>
+          </div>
+
+          <!-- Section Matriks Rasionalisasi 4 PTN -->
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <h4 class="text-base font-bold text-slate-800 dark:text-white">Matriks Rasionalisasi 4 PTN Pilihan</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Komparasi peluang lolos jalur SNBP dan SNBT berdasarkan passing grade</p>
+              </div>
+              <button onclick="$('#tab-nav-rasionalisasi').trigger('click');" class="text-xs font-bold text-[#0066FF] dark:text-blue-400 hover:underline">
+                Buka Detail Rasionalisasi &rarr;
+              </button>
+            </div>
+
+            <div id="summary-ptn-matrix" class="space-y-3">
+              <!-- Injected via analisa-nilai.js -->
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================
+             TAB 2: ANALISIS NILAI RAPOR
+             ======================================================== -->
+        <section id="tab-section-rapor" class="tab-content-section hidden space-y-6">
+          
+          <!-- SECTION 1: HASIL ANALISIS RATA-RATA TIAP MATA PELAJARAN -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Rata-Rata Keseluruhan</span>
+              <span id="rapor-overall-avg" class="text-3xl font-black text-slate-800 dark:text-white">93.4</span>
+              <span class="text-xs text-slate-400 block mt-1">Dihitung dari semester aktif</span>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Rata-Rata Mapel Umum</span>
+              <span id="rapor-umum-avg" class="text-3xl font-black text-[#0066FF] dark:text-blue-400">92.8</span>
+              <span class="text-xs text-slate-400 block mt-1">Bobot pendukung SNBP</span>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Rata-Rata Mapel Peminatan</span>
+              <span id="rapor-peminatan-avg" class="text-3xl font-black text-purple-600 dark:text-purple-400">94.3</span>
+              <span class="text-xs text-slate-400 block mt-1">Mapel fokus prodi saintek</span>
+            </div>
+
+            <div class="bg-white dark:bg-slate-800 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs">
+              <span class="text-xs text-slate-500 dark:text-slate-400 block mb-1">Total Mata Pelajaran</span>
+              <span id="rapor-total-subjects" class="text-3xl font-black text-slate-800 dark:text-white">10 Mapel</span>
+              <span class="text-xs text-emerald-600 font-bold block mt-1">100% Tuntas di atas KKM</span>
+            </div>
+          </div>
+
+          <!-- SECTION 2: TABEL PREVIEW NILAI RAPOR -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs overflow-hidden">
+            
+            <!-- Table Header Bar -->
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <!-- Pojok Kiri: Judul & Caption Kecil -->
+              <div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Rekapitulasi Mata Pelajaran Rapor</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tabel capaian nilai semester 1 hingga semester 5 kurikulum merdeka</p>
+              </div>
+
+              <!-- Pojok Kanan: Tab Klasifikasi [Semua] | [Umum] | [Peminatan] & Action Buttons -->
+              <div class="flex flex-wrap items-center gap-2">
+                <!-- Klasifikasi Tab -->
+                <div class="bg-slate-100 dark:bg-slate-700 p-1 rounded-xl flex space-x-1 text-xs font-semibold">
+                  <button class="tab-filter-rapor px-3 py-1.5 rounded-lg active bg-[#0066FF] text-white font-bold" data-filter="Semua">Semua</button>
+                  <button class="tab-filter-rapor px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300" data-filter="Umum">Umum</button>
+                  <button class="tab-filter-rapor px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-300" data-filter="Peminatan">Peminatan</button>
+                </div>
+
+                <!-- Tombol Simulasi OCR -->
+                <button id="btn-open-ocr-scanner" class="px-3.5 py-2 bg-sky-50 dark:bg-sky-950/40 text-sky-700 dark:text-sky-300 border border-sky-200 dark:border-sky-800 hover:bg-sky-100 rounded-xl text-xs font-bold transition-colors flex items-center">
+                  <i class="fa-solid fa-camera mr-1.5"></i>Pindai Rapor (OCR)
+                </button>
+
+                <!-- Tombol "Input Mata Pelajaran" -->
+                <button id="btn-open-modal-rapor" class="px-4 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center shadow-xs">
+                  <i class="fa-solid fa-plus mr-1.5"></i>Input Mata Pelajaran
+                </button>
+              </div>
+            </div>
+
+            <!-- Tabel Data Rapor -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50/70 dark:bg-slate-750 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-700">
+                    <th class="py-3 px-4">Nama Mata Pelajaran</th>
+                    <th class="py-3 px-4 text-center">KKM</th>
+                    <th class="py-3 px-4 text-center">Sem 1</th>
+                    <th class="py-3 px-4 text-center">Sem 2</th>
+                    <th class="py-3 px-4 text-center">Sem 3</th>
+                    <th class="py-3 px-4 text-center">Sem 4</th>
+                    <th class="py-3 px-4 text-center">Sem 5</th>
+                    <th class="py-3 px-4 text-center">Rata-Rata</th>
+                    <th class="py-3 px-4 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="table-rapor-tbody" class="divide-y divide-slate-100 dark:divide-slate-800">
+                  <!-- Injected via analisa-nilai.js -->
+                </tbody>
+              </table>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- ========================================================
+             TAB 3: ANALISIS NILAI TKA
+             ======================================================== -->
+        <section id="tab-section-tka" class="tab-content-section hidden space-y-6">
+          
+          <!-- SECTION 1: DATA PREDIKSI NILAI DI TRYOUT SELANJUTNYA (METODE REGRESI) -->
+          <div class="bg-gradient-to-r from-blue-700 to-indigo-600 rounded-3xl p-6 text-white shadow-lg space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-white/20 font-bold uppercase tracking-wider mb-2 inline-block">
+                  Regresi Linier TKA Berkala
+                </span>
+                <h3 class="text-xl lg:text-2xl font-black">Prediksi Nilai Tryout TKA Selanjutnya</h3>
+                <p class="text-xs text-blue-100 mt-1">Berdasarkan pemodelan matematis lintasan capaian tryout berkala (3 Mapel Wajib + 2 Mapel Pilihan)</p>
+              </div>
+
+              <!-- Prediksi Poin Box -->
+              <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center sm:text-right shrink-0">
+                <span class="text-xs text-blue-100 block">Prediksi Tryout Ke-5</span>
+                <span id="tka-next-prediction" class="text-4xl font-black text-white">760</span>
+                <span class="text-xs text-blue-200 block">Poin Rata-Rata</span>
+              </div>
+            </div>
+
+            <!-- Mathematical Model Details -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/15 text-xs">
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Formula Regresi</span>
+                <strong id="tka-regression-formula" class="text-white font-mono">y = +15.00x + 695.0</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Slope / Kemiringan (m)</span>
+                <strong id="tka-regression-slope" class="text-white font-mono">+15.00</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Korelasi (R&sup2;)</span>
+                <strong id="tka-regression-r2" class="text-white font-mono">0.998 (Sangat Kuat)</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Nilai Terakhir</span>
+                <strong id="tka-latest-avg" class="text-white font-mono">755 Poin</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- SECTION 2: TABEL PREVIEW NILAI TRYOUT BERKALA TKA -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs overflow-hidden">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Rekapitulasi Nilai Tryout Berkala</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tabel capaian nilai tryout berkala</p>
+              </div>
+
+              <button id="btn-open-modal-tka" class="px-4 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center shadow-xs self-start sm:self-auto">
+                <i class="fa-solid fa-plus mr-1.5"></i>Input Tryout
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr class="bg-slate-50/70 dark:bg-slate-750 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-700">
+                    <th class="py-3 px-4">Tryout Ke-</th>
+                    <th class="py-3 px-4 text-center">B. Indo</th>
+                    <th class="py-3 px-4 text-center">Mat Wajib</th>
+                    <th class="py-3 px-4 text-center">B. Ing</th>
+                    <th class="py-3 px-4 text-center">Pilihan 1</th>
+                    <th class="py-3 px-4 text-center">Pilihan 2</th>
+                    <th class="py-3 px-4 text-center">Rata-Rata</th>
+                    <th class="py-3 px-4 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="table-tka-tbody" class="divide-y divide-slate-100 dark:divide-slate-800">
+                  <!-- Injected via analisa-nilai.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================
+             TAB 4: ANALISIS NILAI UTBK (7 SUBTES)
+             ======================================================== -->
+        <section id="tab-section-utbk" class="tab-content-section hidden space-y-6">
+          
+          <!-- SECTION 1: DATA PREDIKSI NILAI DI TRYOUT SELANJUTNYA (METODE REGRESI) -->
+          <div class="bg-gradient-to-r from-sky-600 via-[#0066FF] to-blue-800 rounded-3xl p-6 text-white shadow-lg space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <span class="text-xs px-2.5 py-1 rounded-full bg-white/20 font-bold uppercase tracking-wider mb-2 inline-block">
+                  Regresi Linier UTBK SNBT
+                </span>
+                <h3 class="text-xl lg:text-2xl font-black">Prediksi Nilai Tryout UTBK Selanjutnya</h3>
+                <p class="text-xs text-blue-100 mt-1">Analisis matematis capaian 7 subtes Tes Potensi Skolastik &amp; Literasi SNBT</p>
+              </div>
+
+              <!-- Prediksi Poin Box -->
+              <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 text-center sm:text-right shrink-0">
+                <span class="text-xs text-blue-100 block">Prediksi Tryout Ke-5</span>
+                <span id="utbk-next-prediction" class="text-4xl font-black text-white">750</span>
+                <span class="text-xs text-blue-200 block">Poin Komposit SNBT</span>
+              </div>
+            </div>
+
+            <!-- Mathematical Model Details -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-white/15 text-xs">
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Formula Regresi</span>
+                <strong id="utbk-regression-formula" class="text-white font-mono">y = +18.20x + 682.0</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Slope / Kemiringan (m)</span>
+                <strong id="utbk-regression-slope" class="text-white font-mono">+18.20</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Korelasi (R&sup2;)</span>
+                <strong id="utbk-regression-r2" class="text-white font-mono">0.995 (Sangat Kuat)</strong>
+              </div>
+              <div class="bg-white/10 p-3 rounded-xl">
+                <span class="text-blue-200 block">Nilai Terakhir</span>
+                <strong id="utbk-latest-avg" class="text-white font-mono">753 Poin</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section Breakdown Rata-Rata 7 Subtes -->
+          <div class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs space-y-3">
+            <h4 class="text-sm font-bold text-slate-800 dark:text-white">Peta Kekuatan 7 Subtes SNBT (Rata-Rata Tryout)</h4>
+            <div id="utbk-subtests-summary" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2.5">
+              <!-- Injected via analisa-nilai.js -->
+            </div>
+          </div>
+
+          <!-- SECTION 2: TABEL PREVIEW NILAI 7 SUBTOPIK UTBK -->
+          <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs overflow-hidden">
+            <div class="p-6 border-b border-slate-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+              <div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Rekapitulasi Nilai Tryout Berkala</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tabel capaian nilai tryout berkala</p>
+              </div>
+
+              <button id="btn-open-modal-utbk" class="px-4 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors flex items-center shadow-xs self-start sm:self-auto">
+                <i class="fa-solid fa-plus mr-1.5"></i>Input Tryout
+              </button>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse text-xs">
+                <thead>
+                  <tr class="bg-slate-50/70 dark:bg-slate-750 text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-700">
+                    <th class="py-3 px-3">Tryout</th>
+                    <th class="py-3 px-2 text-center" title="Penalaran Umum">PU</th>
+                    <th class="py-3 px-2 text-center" title="Pengetahuan & Pemahaman Umum">PPU</th>
+                    <th class="py-3 px-2 text-center" title="Pemahaman Bacaan & Menulis">PBM</th>
+                    <th class="py-3 px-2 text-center" title="Pengetahuan Kuantitatif">PK</th>
+                    <th class="py-3 px-2 text-center" title="Penalaran Matematika">PM</th>
+                    <th class="py-3 px-2 text-center" title="Literasi B. Indonesia">Lit Indo</th>
+                    <th class="py-3 px-2 text-center" title="Literasi B. Inggris">Lit Ing</th>
+                    <th class="py-3 px-3 text-center">Rata-Rata</th>
+                    <th class="py-3 px-3 text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody id="table-utbk-tbody" class="divide-y divide-slate-100 dark:divide-slate-800">
+                  <!-- Injected via analisa-nilai.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========================================================
+             TAB 5: RASIONALISASI PTN (SNBP vs SNBT)
+             ======================================================== -->
+        <section id="tab-section-rasionalisasi" class="tab-content-section hidden space-y-6">
+          
+          <!-- SECTION 1: MENU PEMILIHAN PTN (4 Card Pilihan) -->
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <h3 class="text-lg font-bold text-slate-800 dark:text-white">Pilihan Perguruan Tinggi Negeri Impian</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Klik salah satu kartu untuk menganalisis rasionalisasi peluang secara mendalam</p>
+              </div>
+            </div>
+
+            <!-- 4 Cards Pilihan PTN -->
+            <div id="ptn-selection-cards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <!-- Injected via analisa-nilai.js -->
+            </div>
+          </div>
+
+          <!-- SECTION 2: FRAME RASIONALISASI PTN (2 Card Utama: SNBP & SNBT) -->
+          <div class="space-y-4">
+            <!-- Active PTN Title Banner -->
+            <div class="bg-white dark:bg-slate-800 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shadow-xs">
+              <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 text-[#0066FF] dark:bg-blue-900/40 dark:text-blue-300 flex items-center justify-center text-lg font-bold">
+                  <i class="fa-solid fa-building-columns"></i>
+                </div>
+                <div>
+                  <h4 id="active-ptn-title" class="font-extrabold text-slate-800 dark:text-white text-base">Institut Teknologi Bandung — STEI Komputasi</h4>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Sumber referensi: Portal Resmi SNPMB Kemendikbudristek</p>
+                </div>
+              </div>
+              <span id="active-ptn-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-blue-100 text-[#0066FF] dark:bg-blue-900/40 dark:text-blue-300 self-start sm:self-auto">
+                Rumpun Saintek
+              </span>
+            </div>
+
+            <!-- 2 Card Utama Rasionalisasi -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              
+              <!-- CARD 1: ANALISIS SNBP (Rapor + TKA) -->
+              <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700 shadow-xs flex flex-col justify-between space-y-6">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2.5">
+                      <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300 flex items-center justify-center text-sm font-bold">
+                        1
+                      </span>
+                      <h4 class="text-lg font-bold text-slate-800 dark:text-white">Analisis Jalur SNBP</h4>
+                    </div>
+                    <span id="snbp-status-pill" class="px-3 py-1 rounded-full text-xs font-bold border">
+                      Sangat Berpeluang
+                    </span>
+                  </div>
+
+                  <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-5">
+                    Perbandingan passing grade & keketatan prodi pilihan dengan integrasi nilai Rapor Semester 1–5 serta capaian Ujian TKA.
+                  </p>
+
+                  <!-- Komparasi Nilai Siswa vs Passing Grade -->
+                  <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+                      <span class="text-xs text-slate-500 dark:text-slate-400 block mb-0.5">Nilai Komposit Siswa</span>
+                      <span id="snbp-student-score" class="text-2xl font-black text-slate-800 dark:text-white">93.9</span>
+                      <span class="text-[11px] text-slate-400 block mt-0.5">(Rapor 70% + TKA 30%)</span>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+                      <span class="text-xs text-slate-500 dark:text-slate-400 block mb-0.5">Passing Grade SNBP</span>
+                      <span id="snbp-passing-grade" class="text-2xl font-black text-[#0066FF] dark:text-blue-400">93.8</span>
+                      <span class="text-[11px] text-slate-400 block mt-0.5">Ambang batas aman</span>
+                    </div>
+                  </div>
+
+                  <!-- Margin Selisih & Estimasi Peluang -->
+                  <div class="space-y-3 p-4 rounded-2xl bg-slate-50/60 dark:bg-slate-700/20 border border-slate-100 dark:border-slate-750">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="text-slate-600 dark:text-slate-300 font-medium">Margin Nilai Terhadap Target</span>
+                      <span id="snbp-gap-badge" class="text-xs px-2.5 py-1 rounded-full font-bold">
+                        <span id="snbp-gap-value">+0.1</span>
+                      </span>
+                    </div>
+
+                    <div>
+                      <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+                        <span class="text-slate-700 dark:text-slate-200">Estimasi Peluang Lolos</span>
+                        <span id="snbp-peluang-percent" class="text-emerald-600 dark:text-emerald-400">82%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="snbp-peluang-bar" class="h-full bg-gradient-to-r from-teal-400 to-emerald-500 rounded-full" style="width: 82%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Info Keketatan SNBP -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 grid grid-cols-3 gap-2 text-center text-xs">
+                  <div>
+                    <span class="text-slate-400 block">Keketatan</span>
+                    <strong id="snbp-keketatan" class="text-slate-800 dark:text-white">3.51%</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block">Daya Tampung</span>
+                    <strong id="snbp-daya-tampung" class="text-slate-800 dark:text-white">85 Kursi</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block">Peminat</span>
+                    <strong id="snbp-peminat" class="text-slate-800 dark:text-white">2.420</strong>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD 2: ANALISIS SNBT (UTBK) -->
+              <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-200/80 dark:border-slate-700 shadow-xs flex flex-col justify-between space-y-6">
+                <div>
+                  <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center space-x-2.5">
+                      <span class="w-8 h-8 rounded-lg bg-blue-100 text-[#0066FF] dark:bg-blue-900/40 dark:text-blue-300 flex items-center justify-center text-sm font-bold">
+                        2
+                      </span>
+                      <h4 class="text-lg font-bold text-slate-800 dark:text-white">Analisis Jalur SNBT</h4>
+                    </div>
+                    <span id="snbt-status-pill" class="px-3 py-1 rounded-full text-xs font-bold border">
+                      Peluang Aman
+                    </span>
+                  </div>
+
+                  <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-5">
+                    Perbandingan target passing grade & keketatan UTBK dengan hasil prediksi regresi tryout 7 subtes SNBT.
+                  </p>
+
+                  <!-- Komparasi Nilai Siswa vs Passing Grade -->
+                  <div class="grid grid-cols-2 gap-3 mb-5">
+                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+                      <span class="text-xs text-slate-500 dark:text-slate-400 block mb-0.5">Skor UTBK Prediksi</span>
+                      <span id="snbt-student-score" class="text-2xl font-black text-slate-800 dark:text-white">750</span>
+                      <span class="text-[11px] text-slate-400 block mt-0.5">7 Subtes Potensi Skolastik</span>
+                    </div>
+
+                    <div class="p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+                      <span class="text-xs text-slate-500 dark:text-slate-400 block mb-0.5">Passing Grade SNBT</span>
+                      <span id="snbt-passing-grade" class="text-2xl font-black text-[#0066FF] dark:text-blue-400">765</span>
+                      <span class="text-[11px] text-slate-400 block mt-0.5">Target skor aman PTN</span>
+                    </div>
+                  </div>
+
+                  <!-- Margin Selisih & Estimasi Peluang -->
+                  <div class="space-y-3 p-4 rounded-2xl bg-slate-50/60 dark:bg-slate-700/20 border border-slate-100 dark:border-slate-750">
+                    <div class="flex items-center justify-between text-xs">
+                      <span class="text-slate-600 dark:text-slate-300 font-medium">Margin Nilai Terhadap Target</span>
+                      <span id="snbt-gap-badge" class="text-xs px-2.5 py-1 rounded-full font-bold">
+                        <span id="snbt-gap-value">-15 Poin</span>
+                      </span>
+                    </div>
+
+                    <div>
+                      <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+                        <span class="text-slate-700 dark:text-slate-200">Estimasi Peluang Lolos</span>
+                        <span id="snbt-peluang-percent" class="text-[#0066FF] dark:text-blue-400">68%</span>
+                      </div>
+                      <div class="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
+                        <div id="snbt-peluang-bar" class="h-full bg-gradient-to-r from-blue-400 to-[#0066FF] rounded-full" style="width: 68%;"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Info Keketatan SNBT -->
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 grid grid-cols-3 gap-2 text-center text-xs">
+                  <div>
+                    <span class="text-slate-400 block">Keketatan</span>
+                    <strong id="snbt-keketatan" class="text-slate-800 dark:text-white">3.01%</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block">Daya Tampung</span>
+                    <strong id="snbt-daya-tampung" class="text-slate-800 dark:text-white">110 Kursi</strong>
+                  </div>
+                  <div>
+                    <span class="text-slate-400 block">Peminat</span>
+                    <strong id="snbt-peminat" class="text-slate-800 dark:text-white">3.650</strong>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================
+       POP-UP MODAL INPUT NILAI RAPOR
+       - Judul: (Pojok Kanan, Bold Hitam): "Input Mata Pelajaran"
+       - Caption: "Masukan Mata Pelajaran Beserta Nilai Rapor Sesuai Semester"
+       - Form: Input Nama Mapel, Radio Option (Umum / Peminatan), 5 Card Checkbox Sem 1–5 dengan bar input nilai di bawahnya.
+       - Action Button: Tombol Batal & Tombol Simpan.
+       ======================================================== -->
+  <div id="modal-rapor-subject" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      
+      <!-- Modal Header (Sesuai Spesifikasi: Judul Pojok Kanan Bold Hitam) -->
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <button type="button" class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+        <div class="text-right">
+          <h3 id="modal-rapor-title" class="text-xl font-black text-slate-900 dark:text-white">Input Mata Pelajaran</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Masukan Mata Pelajaran Beserta Nilai Rapor Sesuai Semester</p>
+        </div>
+      </div>
+
+      <!-- Form Body Scrollable -->
+      <form id="form-rapor-subject" class="p-6 overflow-y-auto space-y-5">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1.5">Nama Mata Pelajaran</label>
+          <input type="text" id="input-rapor-nama" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Matematika Tingkat Lanjut" required>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1.5">Standar KKM (Default 75)</label>
+            <input type="number" id="input-rapor-kkm" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" value="75" min="60" max="100" required>
+          </div>
+
+          <!-- Radio Option: (Umum / Peminatan) -->
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1.5">Klasifikasi Mapel</label>
+            <div class="flex items-center space-x-4 pt-2">
+              <label class="inline-flex items-center space-x-2 text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <input type="radio" name="rapor-tipe" value="Umum" class="text-[#0066FF] focus:ring-blue-500 w-4 h-4" checked>
+                <span>Umum</span>
+              </label>
+              <label class="inline-flex items-center space-x-2 text-sm font-semibold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <input type="radio" name="rapor-tipe" value="Peminatan" class="text-[#0066FF] focus:ring-blue-500 w-4 h-4">
+                <span>Peminatan</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5 Card Checkbox Sem 1–5 dengan bar input nilai di bawahnya -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">Nilai Semester 1–5</label>
+          <div class="grid grid-cols-1 sm:grid-cols-5 gap-3">
+            
+            <!-- Sem 1 Card -->
+            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-2">
+              <label class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <span>Sem 1</span>
+                <input type="checkbox" id="check-sem-1" class="checkbox-sem rounded text-[#0066FF] w-4 h-4" data-sem="1" checked>
+              </label>
+              <input type="number" id="input-sem-1" class="input-sem-score w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-center font-bold text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0-100" min="0" max="100">
+            </div>
+
+            <!-- Sem 2 Card -->
+            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-2">
+              <label class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <span>Sem 2</span>
+                <input type="checkbox" id="check-sem-2" class="checkbox-sem rounded text-[#0066FF] w-4 h-4" data-sem="2" checked>
+              </label>
+              <input type="number" id="input-sem-2" class="input-sem-score w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-center font-bold text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0-100" min="0" max="100">
+            </div>
+
+            <!-- Sem 3 Card -->
+            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-2">
+              <label class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <span>Sem 3</span>
+                <input type="checkbox" id="check-sem-3" class="checkbox-sem rounded text-[#0066FF] w-4 h-4" data-sem="3" checked>
+              </label>
+              <input type="number" id="input-sem-3" class="input-sem-score w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-center font-bold text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0-100" min="0" max="100">
+            </div>
+
+            <!-- Sem 4 Card -->
+            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-2">
+              <label class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <span>Sem 4</span>
+                <input type="checkbox" id="check-sem-4" class="checkbox-sem rounded text-[#0066FF] w-4 h-4" data-sem="4" checked>
+              </label>
+              <input type="number" id="input-sem-4" class="input-sem-score w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-center font-bold text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0-100" min="0" max="100">
+            </div>
+
+            <!-- Sem 5 Card -->
+            <div class="p-3 rounded-2xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex flex-col justify-between space-y-2">
+              <label class="flex items-center justify-between text-xs font-bold text-slate-700 dark:text-slate-200 cursor-pointer">
+                <span>Sem 5</span>
+                <input type="checkbox" id="check-sem-5" class="checkbox-sem rounded text-[#0066FF] w-4 h-4" data-sem="5" checked>
+              </label>
+              <input type="number" id="input-sem-5" class="input-sem-score w-full px-2 py-1.5 rounded-lg border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-center font-bold text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="0-100" min="0" max="100">
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Action Button: Tombol Batal & Tombol Simpan -->
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-end space-x-3">
+          <button type="button" class="btn-close-modal px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-bold hover:bg-slate-200 transition-colors">
+            Batal
+          </button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold transition-colors shadow-sm">
+            Simpan Mata Pelajaran
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POP-UP MODAL INPUT TKA -->
+  <div id="modal-tka" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
+        <h3 id="modal-tka-title" class="text-lg font-bold text-slate-800 dark:text-white">Input Tryout TKA</h3>
+        <button type="button" class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-tka" class="p-6 overflow-y-auto space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Tryout Ke-</label>
+          <input type="number" id="input-tka-toke" class="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm" min="1" required>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <span class="text-xs font-bold text-[#0066FF] dark:text-blue-400 block uppercase tracking-wider">3 Mata Pelajaran Wajib</span>
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">B. Indonesia</label>
+              <input type="number" id="input-tka-bindo" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 740" required>
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">Matematika Wajib</label>
+              <input type="number" id="input-tka-matwajib" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 760" required>
+            </div>
+            <div>
+              <label class="block text-[11px] text-slate-500 mb-1">B. Inggris</label>
+              <input type="number" id="input-tka-bing" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 730" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-3 pt-2">
+          <span class="text-xs font-bold text-purple-600 dark:text-purple-400 block uppercase tracking-wider">2 Mata Pelajaran Pilihan Bebas</span>
+          <div class="grid grid-cols-2 gap-3">
+            <div class="space-y-1.5">
+              <input type="text" id="input-tka-pilihan1-nama" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium" placeholder="Nama Mapel 1 (cth: Fisika)" required>
+              <input type="number" id="input-tka-pilihan1-nilai" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="Nilai (cth: 750)" required>
+            </div>
+            <div class="space-y-1.5">
+              <input type="text" id="input-tka-pilihan2-nama" class="w-full px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-medium" placeholder="Nama Mapel 2 (cth: Kimia)" required>
+              <input type="number" id="input-tka-pilihan2-nilai" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="Nilai (cth: 740)" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex justify-end space-x-2">
+          <button type="button" class="btn-close-modal px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 text-xs font-bold">Batal</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold">Simpan Tryout TKA</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POP-UP MODAL INPUT UTBK (7 SUBTES) -->
+  <div id="modal-utbk" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
+        <h3 id="modal-utbk-title" class="text-lg font-bold text-slate-800 dark:text-white">Input Tryout UTBK (7 Subtes)</h3>
+        <button type="button" class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="form-utbk" class="p-6 overflow-y-auto space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Tryout Ke-</label>
+          <input type="number" id="input-utbk-toke" class="w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm" min="1" required>
+        </div>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">PU (Penalaran Umum)</label>
+            <input type="number" id="input-utbk-pu" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 730" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">PPU (Pemahaman Umum)</label>
+            <input type="number" id="input-utbk-ppu" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 710" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">PBM (Bacaan & Menulis)</label>
+            <input type="number" id="input-utbk-pbm" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 740" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">PK (Kuantitatif)</label>
+            <input type="number" id="input-utbk-pk" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 770" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">PM (Penalaran Mat)</label>
+            <input type="number" id="input-utbk-pm" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 760" required>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-500 mb-1">Lit. Bahasa Indonesia</label>
+            <input type="number" id="input-utbk-litindo" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 770" required>
+          </div>
+          <div class="sm:col-span-3">
+            <label class="block text-xs text-slate-500 mb-1">Lit. Bahasa Inggris</label>
+            <input type="number" id="input-utbk-liting" class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm font-semibold" placeholder="cth: 750" required>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex justify-end space-x-2">
+          <button type="button" class="btn-close-modal px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-700 text-xs font-bold">Batal</button>
+          <button type="submit" class="px-5 py-2 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold">Simpan Tryout UTBK</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- POP-UP MODAL PEMILIH PTN SNPMB -->
+  <div id="modal-ptn-selector" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
+        <div>
+          <h3 class="text-lg font-bold text-slate-800 dark:text-white">Database Prodi Resmi SNPMB</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400">Pilih program studi PTN untuk slot target impianmu</p>
+        </div>
+        <button type="button" class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="ptn-options-list" class="p-6 overflow-y-auto space-y-3">
+        <!-- Injected via analisa-nilai.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- POP-UP MODAL SIMULASI OCR CLIENT-SIDE -->
+  <div id="modal-ocr-scanner" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300 flex items-center justify-center text-base">
+            <i class="fa-solid fa-camera"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">Simulasi OCR Dokumen Rapor</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pemindaian cerdas client-side format Kurikulum Merdeka</p>
+          </div>
+        </div>
+        <button type="button" class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-5">
+        
+        <!-- View Awal Preview Lembar Rapor & Tombol Pindai -->
+        <div id="ocr-initial-view" class="space-y-4">
+          <div class="relative bg-slate-100 dark:bg-slate-900 rounded-2xl p-5 border-2 border-dashed border-slate-300 dark:border-slate-700 overflow-hidden text-center">
+            <div class="scanner-laser-line"></div>
+            <div class="max-w-md mx-auto py-4">
+              <i class="fa-regular fa-file-lines text-5xl text-[#0066FF] mb-3 inline-block"></i>
+              <h4 class="font-bold text-slate-800 dark:text-white text-sm">Sampel Lembar Rapor Siswa Terverifikasi</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">SMAN 1 Teladan — Kurikulum Merdeka (Semester 1–5)</p>
+              <div class="mt-4 inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 text-xs font-semibold">
+                <i class="fa-solid fa-check"></i> 10 Mata Pelajaran Terdeteksi
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btn-start-ocr-scan" class="w-full py-3.5 bg-[#0066FF] hover:bg-blue-700 text-white font-bold rounded-2xl text-sm transition-all shadow-md flex items-center justify-center space-x-2">
+            <i class="fa-solid fa-bolt"></i>
+            <span>Mulai Pemindaian &amp; Ekstraksi Cerdas</span>
+          </button>
+        </div>
+
+        <!-- View Animasi Scan Sedang Berjalan -->
+        <div id="ocr-scan-progress-box" class="hidden text-center py-8 space-y-4">
+          <div class="inline-block relative">
+            <div class="w-16 h-16 rounded-full border-4 border-blue-200 border-t-[#0066FF] animate-spin"></div>
+            <i class="fa-solid fa-brain absolute inset-0 m-auto text-xl text-[#0066FF] flex items-center justify-center"></i>
+          </div>
+          <div>
+            <h4 id="ocr-progress-status" class="font-bold text-slate-800 dark:text-white text-sm">Mendeteksi format Kurikulum Merdeka...</h4>
+            <div class="w-64 max-w-full mx-auto bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden mt-3">
+              <div id="ocr-progress-bar" class="h-full bg-[#0066FF] rounded-full transition-all duration-300" style="width: 20%;"></div>
+            </div>
+            <span id="ocr-progress-percent" class="text-xs text-slate-400 mt-1 block">20%</span>
+          </div>
+        </div>
+
+        <!-- View Hasil Ekstraksi Tabel -->
+        <div id="ocr-scan-results-box" class="hidden space-y-4">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-emerald-600 flex items-center">
+              <i class="fa-solid fa-circle-check mr-1.5 text-base"></i> Pemindaian Selesai (Confidence: 99.4%)
+            </span>
+            <span class="text-xs text-slate-500">10 Mapel Berhasil Diekstrak</span>
+          </div>
+
+          <div class="overflow-x-auto max-h-56 border border-slate-200 dark:border-slate-700 rounded-xl">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-slate-50 dark:bg-slate-750 text-[10px] font-bold text-slate-500 uppercase tracking-wider">
+                  <th class="py-2 px-3">Mapel</th>
+                  <th class="py-2 px-2 text-center">S1</th>
+                  <th class="py-2 px-2 text-center">S2</th>
+                  <th class="py-2 px-2 text-center">S3</th>
+                  <th class="py-2 px-2 text-center">S4</th>
+                  <th class="py-2 px-2 text-center">S5</th>
+                  <th class="py-2 px-2 text-center">Akurasi</th>
+                </tr>
+              </thead>
+              <tbody id="table-ocr-preview-tbody">
+                <!-- Injected via ocr-scanner.js -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-850 flex items-center justify-between">
+        <button type="button" class="btn-close-modal px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold">
+          Tutup
+        </button>
+        <button type="button" id="btn-apply-ocr-data" class="hidden px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold shadow-md transition-all">
+          <i class="fa-solid fa-file-import mr-1.5"></i>Terapkan ke Rekapitulasi Rapor
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Include Setting & Guide Global Modals -->
+  <!-- MODAL POP-UP 1: SETTING (#modal-setting) -->
+  <div id="modal-setting" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-base">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white leading-tight">Pengaturan EduGrade</h3>
+            <p class="text-xs text-slate-400">Kelola preferensi akun & tema antarmuka</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex border-b border-slate-100 dark:border-slate-700/80 px-6">
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 active" data-tab="profile">
+          <i class="fa-regular fa-user mr-2"></i>Profile
+        </button>
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700" data-tab="theme">
+          <i class="fa-solid fa-palette mr-2"></i>Theme
+        </button>
+      </div>
+
+      <div class="p-6">
+        <div id="setting-pane-profile" class="setting-tab-pane space-y-4">
+          <form id="form-setting-profile" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Nama Lengkap</label>
+              <input type="text" id="input-setting-nama" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Kelas Saat Ini</label>
+              <input type="text" id="input-setting-kelas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Ubah Password Baru (Opsional)</label>
+              <input type="password" id="input-setting-password" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <p class="text-xs text-rose-500 font-medium italic">*Pastikan semua data yang di masukkan benar!</p>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-3">
+              <button type="button" id="btn-reset-akun" class="px-4 py-2.5 rounded-xl border border-rose-200 text-rose-600 dark:text-rose-400 hover:bg-rose-50 text-xs font-bold">
+                <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>Reset Akun
+              </button>
+              <div class="flex items-center space-x-2">
+                <button type="button" class="btn-close-modal px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-xs font-semibold">Batal</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold">Simpan Perubahan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="setting-pane-theme" class="setting-tab-pane hidden space-y-5">
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="light">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800">Light Theme</h5>
+              <p class="text-xs text-slate-500 mt-0.5">Modern Clean</p>
+            </button>
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="dark">
+              <div class="w-10 h-10 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-moon"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800 dark:text-slate-100">Dark Mode</h5>
+              <p class="text-xs text-slate-500 mt-0.5">Minim Silau</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL POP-UP 2: GUIDE (#modal-guide) -->
+  <div id="modal-guide" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] flex items-center justify-center text-base">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">Panduan Pengguna (User Guide)</h3>
+            <p class="text-xs text-slate-400">EduGrade v1.0 &bull; INVENTION 2026</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex overflow-x-auto border-b border-slate-100 dark:border-slate-700/80 px-4 sm:px-6 scrollbar-none">
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold rounded-lg my-1 mr-1 transition-colors active bg-blue-600 text-white" data-tab="tentang">Tentang</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="faq">FAQ</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="tutorial">Tutorial</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="glosarium">Glosarium</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="contact">Contact</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-600 dark:text-slate-300">
+        <div id="guide-pane-tentang" class="guide-tab-pane space-y-3">
+          <p>EduGrade v1.0 adalah platform analytics edukasi untuk lomba <strong>INVENTION 2026</strong> ("Building Smarter Communities Through Digital Learning").</p>
+        </div>
+        <div id="guide-pane-faq" class="guide-tab-pane hidden space-y-3">
+          <p><strong>Q1: Apakah data nilai saya aman?</strong><br>A: Sangat aman. Seluruh data dimasukkan tersimpan 100% secara lokal di browser kamu (localStorage) dan tidak dikirim ke server luar mana pun.</p>
+          <p><strong>Q2: Dari mana sumber data keketatan PTN diperoleh?</strong><br>A: Data daya tampung dan peminat dihimpun secara terintegrasi dari portal resmi SNPMB Kemendikbudristek.</p>
+          <p><strong>Q3: Bagaimana fitur Simulasi OCR bekerja?</strong><br>A: Fitur ini menggunakan pemroses data client-side untuk membaca sampel dokumen dan mengisi form secara otomatis sebagai bentuk demonstrasi sistem cerdas.</p>
+        </div>
+        <div id="guide-pane-tutorial" class="guide-tab-pane hidden space-y-2 text-xs">
+          <p><strong>Step 1:</strong> Input atau Pindai Data Nilai</p>
+          <p><strong>Step 2:</strong> Pilih Target PTN & Program Studi</p>
+          <p><strong>Step 3:</strong> Tinjau Indeks Kesiapan</p>
+          <p><strong>Step 4:</strong> Manfaatkan Alat Pelajar</p>
+        </div>
+        <div id="guide-pane-glosarium" class="guide-tab-pane hidden space-y-2 text-xs">
+          <p><strong>Indeks Kesiapan Akademik:</strong> Skor komposit 0–100% dari gabungan tren nilai, bobot mapel pendukung, dan tingkat kompetisi.</p>
+          <p><strong>Keketatan (%):</strong> Persentase rasio daya tampung dibanding total peminat tahun sebelumnya.</p>
+          <p><strong>Matpel Pendukung:</strong> Mata pelajaran utama yang diprioritaskan sesuai ketentuan Kurikulum Merdeka.</p>
+        </div>
+        <div id="guide-pane-contact" class="guide-tab-pane hidden space-y-3 text-xs">
+          <p>Email Bantuan: support@edugrade.id</p>
+        </div>
+      </div>
+
+      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-850 flex justify-end">
+        <button class="btn-close-modal px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold">Tutup Panduan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- LocalStorage Engine, Calculations, OCR & Page Scripts -->
+  <script src="js/storage.js"></script>
+  <script src="js/calculations.js"></script>
+  <script src="js/ocr-scanner.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/analisa-nilai.js"></script>
+
+</body>
+</html>

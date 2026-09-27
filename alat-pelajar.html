@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Alat Pelajar — EduGrade v1.0 | Platform Analytics & Student Tools</title>
+  <meta name="description" content="Koleksi Student Tools EduGrade v1.0: Pomodoro Timer, Pembersih Teks, Generator Sitasi, dan Perencana Jadwal Belajar.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              500: '#0066FF',
+              600: '#0052cc',
+              700: '#0041a8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#F0F4F9] dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200">
+
+  <!-- WRAPPER UTAMA DENGAN SOLID PRIMARY SIDEBAR -->
+  <div class="flex flex-1 min-h-screen">
+
+    <!-- DESKTOP PRIMARY SIDEBAR (#0066FF) -->
+    <aside class="hidden lg:flex w-72 bg-[#0066FF] flex-col justify-between p-6 text-white shadow-xl z-30">
+      <div>
+        <!-- BRAND LOGO -->
+        <div class="flex items-center space-x-3 mb-8">
+          <div class="w-11 h-11 bg-white text-[#0066FF] rounded-2xl flex items-center justify-center text-xl font-black shadow-md">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-xl font-extrabold tracking-tight">EduGrade</span>
+              <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">v1.0</span>
+            </div>
+            <p class="text-[11px] text-blue-100/80 font-medium">INVENTION 2026</p>
+          </div>
+        </div>
+
+        <!-- BADGE SUBTEMA LOMBA -->
+        <div class="bg-white/10 rounded-xl p-3 mb-6 border border-white/10">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200 block mb-0.5">Subtema Lomba</span>
+          <p class="text-xs text-blue-50 font-medium leading-snug">"Building Smarter Communities Through Digital Learning"</p>
+        </div>
+
+        <!-- MENU UTAMA NAVIGASI -->
+        <nav class="space-y-1.5" aria-label="Menu Utama">
+          <!-- 1. Dashboard -->
+          <a href="dashboard.html" data-page="dashboard" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-chart-pie w-5 text-center mr-3"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <!-- 2. Analisis Nilai -->
+          <a href="analisa-nilai.html" data-page="analisa" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-chart-line w-5 text-center mr-3"></i>
+            <span>Analisis Nilai</span>
+          </a>
+
+          <!-- 3. Alat Pelajar (Aktif) -->
+          <a href="alat-pelajar.html" data-page="alat" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 font-bold bg-white text-[#0066FF] shadow-sm">
+            <i class="fa-solid fa-toolbox w-5 text-center mr-3"></i>
+            <span>Alat Pelajar</span>
+          </a>
+
+          <div class="pt-4 pb-2 border-t border-white/15 my-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200/80 px-4">Pengaturan & Bantuan</span>
+          </div>
+
+          <!-- 4. Setting (Membuka Modal Setting) -->
+          <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-gear w-5 text-center mr-3"></i>
+            <span>Setting</span>
+          </button>
+
+          <!-- 5. Guide (Membuka Modal Guide) -->
+          <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-circle-question w-5 text-center mr-3"></i>
+            <span>Guide</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- FOOTER SIDEBAR -->
+      <div class="pt-4 border-t border-white/15 text-[11px] text-blue-200/70">
+        <p class="font-medium text-white/90">EduGrade v1.0 Platform</p>
+        <p>Student Productivity Suite</p>
+      </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR DRAWER -->
+    <div id="mobile-sidebar-drawer" class="fixed inset-0 z-50 hidden">
+      <div id="mobile-sidebar-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+      <div class="relative w-72 max-w-[80vw] h-full bg-[#0066FF] text-white p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 bg-white text-[#0066FF] rounded-xl flex items-center justify-center text-lg font-black">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <span class="text-lg font-bold">EduGrade v1.0</span>
+                <p class="text-[10px] text-blue-100/80">INVENTION 2026</p>
+              </div>
+            </div>
+            <button id="btn-close-mobile-menu" class="p-2 text-white/80 hover:text-white">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-chart-pie w-5 mr-3"></i>Dashboard
+            </a>
+            <a href="analisa-nilai.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-chart-line w-5 mr-3"></i>Analisis Nilai
+            </a>
+            <a href="alat-pelajar.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-bold bg-white text-[#0066FF]">
+              <i class="fa-solid fa-toolbox w-5 mr-3"></i>Alat Pelajar
+            </a>
+            <div class="pt-3 border-t border-white/15 my-2"></div>
+            <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-gear w-5 mr-3"></i>Setting
+            </button>
+            <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-circle-question w-5 mr-3"></i>Guide
+            </button>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CANVAS AREA (#F0F4F9) -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+      <!-- HEADER GLOBAL (Berlaku di Semua Halaman Utama) -->
+      <header class="sticky top-0 z-20 bg-[#F0F4F9]/90 dark:bg-[#0b1329]/90 backdrop-blur-md px-6 lg:px-10 py-4 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+          <!-- Pojok Kiri: Teks Nama Halaman Aktif -->
+          <div class="flex items-center space-x-3">
+            <button id="btn-toggle-mobile-menu" class="lg:hidden p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <i class="fa-solid fa-bars text-base"></i>
+            </button>
+            <div>
+              <span class="text-lg lg:text-xl font-black tracking-tight text-slate-800 dark:text-white">[Alat Pelajar]</span>
+              <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Alat produktivitas belajar mandiri siswa SMA/K</p>
+            </div>
+          </div>
+
+          <!-- Pojok Kanan: Floating Card Profile -->
+          <div class="flex items-center space-x-3">
+            <button data-modal-trigger="setting" class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#0066FF] shadow-xs" title="Pengaturan Akun & Tema">
+              <i class="fa-solid fa-sliders text-sm"></i>
+            </button>
+
+            <div data-modal-trigger="setting" class="cursor-pointer flex items-center space-x-3 bg-white dark:bg-slate-800 px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:shadow-md transition-shadow">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar Siswa" class="header-user-avatar w-9 h-9 rounded-full object-cover ring-2 ring-[#0066FF]/20">
+              <div class="text-left hidden sm:block">
+                <h4 class="header-user-name text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight">Bhisma</h4>
+                <p class="header-user-class text-[11px] font-semibold text-[#0066FF] dark:text-blue-400 leading-tight">XII IPA</p>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY ALAT PELAJAR -->
+      <div class="flex-1 px-6 lg:px-10 py-6 max-w-6xl mx-auto w-full space-y-8">
+
+        <!-- 1. SECTION 1 (TOP GRID MENU): 4 Card Tool Demo -->
+        <section class="space-y-3">
+          <div>
+            <h3 class="text-xl font-black text-slate-800 dark:text-white tracking-tight">Koleksi Alat Pelajar Interaktif</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pilih salah satu tools produktivitas di bawah ini untuk membuka antarmuka kerja</p>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            
+            <!-- Tool 1: Pomodoro Timer -->
+            <div class="card-tool-demo cursor-pointer bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-blue-400 transition-all flex flex-col justify-between" data-tool-id="pomodoro">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-900/30 text-rose-600 dark:text-rose-400 flex items-center justify-center text-xl mb-4">
+                  <i class="fa-solid fa-clock"></i>
+                </div>
+                <h4 class="font-bold text-slate-800 dark:text-white text-base mb-1">Pomodoro Timer</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Sesi fokus 25 menit dengan istirahat teratur untuk memaksimalkan retensi materi belajar.</p>
+              </div>
+              <span class="inline-flex items-center text-xs font-bold text-[#0066FF] dark:text-blue-400">
+                <span>Pilih Tool</span>
+                <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+              </span>
+            </div>
+
+            <!-- Tool 2: Pembersih Teks -->
+            <div class="card-tool-demo cursor-pointer bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-blue-400 transition-all flex flex-col justify-between" data-tool-id="pembersih">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 flex items-center justify-center text-xl mb-4">
+                  <i class="fa-solid fa-broom"></i>
+                </div>
+                <h4 class="font-bold text-slate-800 dark:text-white text-base mb-1">Pembersih Teks</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Rapikan catatan berantakan, hilangkan spasi ganda, atur kapitalisasi, dan bersihkan simbol.</p>
+              </div>
+              <span class="inline-flex items-center text-xs font-bold text-[#0066FF] dark:text-blue-400">
+                <span>Pilih Tool</span>
+                <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+              </span>
+            </div>
+
+            <!-- Tool 3: Generator Sitasi -->
+            <div class="card-tool-demo cursor-pointer bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-blue-400 transition-all flex flex-col justify-between" data-tool-id="sitasi">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 flex items-center justify-center text-xl mb-4">
+                  <i class="fa-solid fa-quote-right"></i>
+                </div>
+                <h4 class="font-bold text-slate-800 dark:text-white text-base mb-1">Generator Sitasi</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Buat referensi karya tulis ilmiah standar APA 7th, MLA 9th, dan IEEE secara presisi.</p>
+              </div>
+              <span class="inline-flex items-center text-xs font-bold text-[#0066FF] dark:text-blue-400">
+                <span>Pilih Tool</span>
+                <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+              </span>
+            </div>
+
+            <!-- Tool 4: Perencana Jadwal Belajar -->
+            <div class="card-tool-demo cursor-pointer bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-blue-400 transition-all flex flex-col justify-between" data-tool-id="jadwal">
+              <div>
+                <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-xl mb-4">
+                  <i class="fa-solid fa-calendar-check"></i>
+                </div>
+                <h4 class="font-bold text-slate-800 dark:text-white text-base mb-1">Perencana Jadwal</h4>
+                <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4">Jadwalkan agenda target belajar harian, atur prioritas, dan pantau persentase ketuntasan.</p>
+              </div>
+              <span class="inline-flex items-center text-xs font-bold text-[#0066FF] dark:text-blue-400">
+                <span>Pilih Tool</span>
+                <i class="fa-solid fa-arrow-right ml-1.5 text-[10px]"></i>
+              </span>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 2. SECTION 2: WORKING FRAME AREA -->
+        <section id="working-frame-section">
+          
+          <!-- DEFAULT STATE: Frame kosong dengan placeholder "Pilihlah tools mu di atas untuk memulai" -->
+          <div id="tool-default-state" class="bg-white dark:bg-slate-800 rounded-3xl p-12 lg:p-16 border-2 border-dashed border-slate-200 dark:border-slate-700 text-center flex flex-col items-center justify-center space-y-4">
+            <div class="w-20 h-20 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-3xl">
+              <i class="fa-solid fa-hand-pointer animate-bounce"></i>
+            </div>
+            <div class="max-w-md">
+              <h4 class="text-lg font-bold text-slate-800 dark:text-white">Pilihlah tools mu di atas untuk memulai</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 leading-relaxed">
+                Klik salah satu kartu alat belajar di grid atas (Pomodoro Timer, Pembersih Teks, Generator Sitasi, atau Perencana Jadwal) untuk mengaktifkan antarmuka kerja.
+              </p>
+            </div>
+          </div>
+
+          <!-- ACTIVE STATE: Frame berubah dinamis menjadi interface kerja tool yang dipilih -->
+          <div id="tool-working-frame" class="hidden bg-white dark:bg-slate-800 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm p-6 lg:p-8">
+            
+            <!-- PANE 1: POMODORO TIMER -->
+            <div id="pane-pomodoro" class="tool-pane hidden space-y-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 dark:bg-rose-900/40 dark:text-rose-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-clock"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">Pomodoro Focus Timer</h3>
+                    <p class="text-xs text-slate-500">Kelola durasi belajar dan interval istirahat terukur</p>
+                  </div>
+                </div>
+                <div class="text-xs font-bold px-3 py-1.5 rounded-full bg-rose-50 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">
+                  <i class="fa-solid fa-circle-check mr-1"></i><span id="pomo-completed-count">0</span> Sesi Selesai
+                </div>
+              </div>
+
+              <!-- Mode Toggles: Pomodoro 25m | Short Break 5m | Long Break 15m -->
+              <div class="flex justify-center space-x-2 max-w-md mx-auto">
+                <button class="btn-pomo-mode flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-blue-600 text-white" data-mode="work">
+                  Fokus (25 Menit)
+                </button>
+                <button class="btn-pomo-mode flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-mode="short_break">
+                  Istirahat Singkat (5m)
+                </button>
+                <button class="btn-pomo-mode flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-mode="long_break">
+                  Istirahat Panjang (15m)
+                </button>
+              </div>
+
+              <!-- Big Timer Display -->
+              <div class="text-center py-8">
+                <div id="pomo-time-display" class="text-6xl sm:text-7xl font-black tracking-tight text-slate-800 dark:text-white font-mono">
+                  25:00
+                </div>
+
+                <!-- Progress Bar -->
+                <div class="w-72 max-w-full mx-auto bg-slate-100 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden mt-6">
+                  <div id="pomo-progress-bar" class="h-full bg-gradient-to-r from-rose-500 to-amber-500 rounded-full transition-all duration-1000" style="width: 0%;"></div>
+                </div>
+              </div>
+
+              <!-- Controller Buttons: Start/Pause & Reset -->
+              <div class="flex justify-center space-x-3">
+                <button id="btn-pomo-start" class="px-8 py-3.5 bg-[#0066FF] hover:bg-blue-700 text-white font-bold rounded-2xl text-sm transition-all shadow-md flex items-center">
+                  <i class="fa-solid fa-play mr-2"></i>Mulai Fokus
+                </button>
+                <button id="btn-pomo-reset" class="px-6 py-3.5 bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold rounded-2xl text-sm transition-all flex items-center">
+                  <i class="fa-solid fa-arrow-rotate-left mr-2"></i>Reset
+                </button>
+              </div>
+            </div>
+
+            <!-- PANE 2: PEMBERSIH TEKS -->
+            <div id="pane-pembersih" class="tool-pane hidden space-y-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 dark:bg-amber-900/40 dark:text-amber-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-broom"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">Pembersih Teks &amp; Format Otomatis</h3>
+                    <p class="text-xs text-slate-500">Rapikan teks copy-paste catatan belajar atau kutipan riset</p>
+                  </div>
+                </div>
+
+                <!-- Live Metrics: Karakter & Kata -->
+                <div class="flex items-center space-x-3 text-xs">
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 font-semibold text-slate-600 dark:text-slate-300">
+                    <strong id="metric-char-count">0</strong> Karakter
+                  </span>
+                  <span class="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-700 font-semibold text-slate-600 dark:text-slate-300">
+                    <strong id="metric-word-count">0</strong> Kata
+                  </span>
+                  <span id="metric-read-time" class="hidden sm:inline px-2.5 py-1 rounded-lg bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 font-bold">
+                    ~0 mnt baca
+                  </span>
+                </div>
+              </div>
+
+              <!-- Input Textarea -->
+              <div>
+                <textarea id="text-cleaner-input" rows="8" class="w-full p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all leading-relaxed" placeholder="Ketik atau tempel (paste) catatan belajar yang berantakan di sini..."></textarea>
+              </div>
+
+              <!-- Action Buttons Row -->
+              <div class="flex flex-wrap gap-2 pt-1">
+                <button id="btn-clean-spaces" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  <i class="fa-solid fa-arrows-left-right mr-1.5"></i>Hapus Spasi Ganda
+                </button>
+                <button id="btn-clean-lines" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  <i class="fa-solid fa-bars-staggered mr-1.5"></i>Rapikan Baris Baru
+                </button>
+                <button id="btn-clean-titlecase" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  <i class="fa-solid fa-font mr-1.5"></i>Title Case
+                </button>
+                <button id="btn-clean-uppercase" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  UPPERCASE
+                </button>
+                <button id="btn-clean-lowercase" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  lowercase
+                </button>
+                <button id="btn-clean-symbols" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-blue-50 hover:text-[#0066FF] dark:bg-slate-700 dark:hover:bg-slate-600 text-xs font-semibold transition-colors">
+                  <i class="fa-solid fa-wand-magic-sparkles mr-1.5"></i>Bersihkan Simbol
+                </button>
+              </div>
+
+              <!-- Output & Copy Actions -->
+              <div class="pt-4 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                <button id="btn-clean-clear" class="text-xs text-rose-500 hover:underline font-semibold">
+                  <i class="fa-solid fa-trash mr-1"></i>Kosongkan Input
+                </button>
+                <button id="btn-clean-copy" class="px-6 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center">
+                  <i class="fa-regular fa-copy mr-1.5"></i>Salin Teks Bersih
+                </button>
+              </div>
+            </div>
+
+            <!-- PANE 3: GENERATOR SITASI (APA, MLA, IEEE) -->
+            <div id="pane-sitasi" class="tool-pane hidden space-y-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 dark:bg-indigo-900/40 dark:text-indigo-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-quote-right"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">Generator Sitasi Akademik</h3>
+                    <p class="text-xs text-slate-500">Standar bibliografi resmi APA 7th, MLA 9th, dan IEEE</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Controls: Jenis Sumber (Buku, Jurnal, Website) & Standar Style -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">Tipe Sumber</label>
+                  <div class="flex space-x-2">
+                    <button class="btn-citation-source flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-blue-600 text-white" data-source="book">
+                      <i class="fa-solid fa-book mr-1.5"></i>Buku
+                    </button>
+                    <button class="btn-citation-source flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-source="journal">
+                      <i class="fa-solid fa-newspaper mr-1.5"></i>Jurnal
+                    </button>
+                    <button class="btn-citation-source flex-1 py-2 px-3 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-source="web">
+                      <i class="fa-solid fa-globe mr-1.5"></i>Website
+                    </button>
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">Format Sitasi</label>
+                  <div class="flex items-center space-x-4 pt-1.5">
+                    <label class="inline-flex items-center space-x-2 text-xs font-bold cursor-pointer">
+                      <input type="radio" name="citation-style" value="apa" class="text-[#0066FF] focus:ring-blue-500" checked>
+                      <span>APA 7th</span>
+                    </label>
+                    <label class="inline-flex items-center space-x-2 text-xs font-bold cursor-pointer">
+                      <input type="radio" name="citation-style" value="mla" class="text-[#0066FF] focus:ring-blue-500">
+                      <span>MLA 9th</span>
+                    </label>
+                    <label class="inline-flex items-center space-x-2 text-xs font-bold cursor-pointer">
+                      <input type="radio" name="citation-style" value="ieee" class="text-[#0066FF] focus:ring-blue-500">
+                      <span>IEEE</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Citation Form Inputs -->
+              <form id="form-citation" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nama Penulis / Institusi</label>
+                  <input type="text" id="cite-input-author" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" value="Sudirman, A." placeholder="cth: Sudirman, A.">
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Tahun Terbit</label>
+                  <input type="text" id="cite-input-year" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" value="2024" placeholder="cth: 2024">
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Judul Karya / Tulisan</label>
+                  <input type="text" id="cite-input-title" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" value="Metodologi Penelitian & Sains Modern" placeholder="Judul buku, artikel, atau halaman">
+                </div>
+
+                <div>
+                  <label id="field-source-name-label" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Nama Penerbit / Kota</label>
+                  <input type="text" id="cite-input-source" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" value="Penerbit ITB Press" placeholder="Nama penerbit atau jurnal">
+                </div>
+
+                <div>
+                  <label id="field-extra-label" class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">Edisi Buku (Opsional)</label>
+                  <input type="text" id="cite-input-extra" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" placeholder="cth: Cetakan ke-3">
+                </div>
+
+                <div class="sm:col-span-2">
+                  <label class="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">URL / DOI (Opsional)</label>
+                  <input type="text" id="cite-input-url" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 text-xs bg-white dark:bg-slate-900" placeholder="https://doi.org/... atau https://...">
+                </div>
+              </form>
+
+              <!-- Live Formatted Citation Preview -->
+              <div class="p-5 rounded-2xl bg-indigo-50/60 dark:bg-slate-900 border border-indigo-100 dark:border-slate-700 space-y-3">
+                <span class="text-xs font-bold text-indigo-700 dark:text-indigo-400 block uppercase tracking-wider">Hasil Sitasi Terformat:</span>
+                <div id="citation-output-preview" class="text-sm text-slate-800 dark:text-slate-100 leading-relaxed font-serif">
+                  <!-- Injected via alat-pelajar.js -->
+                </div>
+                <div id="citation-output-raw" class="hidden"></div>
+              </div>
+
+              <div class="flex justify-end">
+                <button id="btn-copy-citation" class="px-6 py-2.5 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-all shadow-sm flex items-center">
+                  <i class="fa-regular fa-copy mr-1.5"></i>Salin Sitasi
+                </button>
+              </div>
+            </div>
+
+            <!-- PANE 4: PERENCANA JADWAL BELAJAR -->
+            <div id="pane-jadwal" class="tool-pane hidden space-y-6">
+              <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
+                <div class="flex items-center space-x-3">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 dark:bg-emerald-900/40 dark:text-emerald-400 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-calendar-check"></i>
+                  </div>
+                  <div>
+                    <h3 class="text-lg font-bold text-slate-800 dark:text-white">Perencana Target Belajar Harian</h3>
+                    <p class="text-xs text-slate-500">Susun prioritas materi dan pantau kedisiplinan belajar</p>
+                  </div>
+                </div>
+
+                <!-- Progress Pill -->
+                <div class="text-right">
+                  <span id="task-progress-text" class="text-xs font-bold text-slate-700 dark:text-slate-200 block">2/4 Target Tercapai (50%)</span>
+                  <div class="w-28 bg-slate-100 dark:bg-slate-700 h-2 rounded-full overflow-hidden mt-1">
+                    <div id="task-progress-bar" class="h-full bg-emerald-500 rounded-full" style="width: 50%;"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Form Tambah Tugas Baru -->
+              <form id="form-add-task" class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-slate-50 dark:bg-slate-700/30 p-4 rounded-2xl border border-slate-200/80 dark:border-slate-700">
+                <div>
+                  <input type="text" id="input-task-mapel" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-semibold" placeholder="Mapel (cth: Fisika)" required>
+                </div>
+                <div class="sm:col-span-2">
+                  <input type="text" id="input-task-judul" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-medium" placeholder="Rincian target (cth: Review 15 Soal Optik & Lensa)" required>
+                </div>
+                <div class="flex space-x-2">
+                  <select id="input-task-prioritas" class="px-2.5 py-2 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900 text-xs font-semibold text-slate-700 dark:text-slate-200">
+                    <option value="Tinggi">Tinggi</option>
+                    <option value="Sedang" selected>Sedang</option>
+                    <option value="Rendah">Rendah</option>
+                  </select>
+                  <button type="submit" class="flex-1 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors whitespace-nowrap">
+                    + Tambah
+                  </button>
+                </div>
+              </form>
+
+              <!-- Filter Tabs: [Semua] | [Belum Selesai] | [Sudah Selesai] -->
+              <div class="flex space-x-2">
+                <button class="btn-filter-task px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-blue-600 text-white" data-filter="all">
+                  Semua
+                </button>
+                <button class="btn-filter-task px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-filter="pending">
+                  Belum Selesai
+                </button>
+                <button class="btn-filter-task px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300" data-filter="done">
+                  Sudah Selesai
+                </button>
+              </div>
+
+              <!-- Task List Container -->
+              <div id="tasks-list-container" class="space-y-2.5">
+                <!-- Injected via alat-pelajar.js -->
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Include Setting & Guide Global Modals -->
+  <!-- MODAL POP-UP 1: SETTING (#modal-setting) -->
+  <div id="modal-setting" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-base">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white leading-tight">Pengaturan EduGrade</h3>
+            <p class="text-xs text-slate-400">Kelola preferensi akun & tema antarmuka</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex border-b border-slate-100 dark:border-slate-700/80 px-6">
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 active" data-tab="profile">
+          <i class="fa-regular fa-user mr-2"></i>Profile
+        </button>
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700" data-tab="theme">
+          <i class="fa-solid fa-palette mr-2"></i>Theme
+        </button>
+      </div>
+
+      <div class="p-6">
+        <div id="setting-pane-profile" class="setting-tab-pane space-y-4">
+          <form id="form-setting-profile" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Nama Lengkap</label>
+              <input type="text" id="input-setting-nama" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Kelas Saat Ini</label>
+              <input type="text" id="input-setting-kelas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Ubah Password Baru (Opsional)</label>
+              <input type="password" id="input-setting-password" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+            </div>
+            <p class="text-xs text-rose-500 font-medium italic">*Pastikan semua data yang di masukkan benar!</p>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-3">
+              <button type="button" id="btn-reset-akun" class="px-4 py-2.5 rounded-xl border border-rose-200 text-rose-600 dark:text-rose-400 hover:bg-rose-50 text-xs font-bold">
+                <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>Reset Akun
+              </button>
+              <div class="flex items-center space-x-2">
+                <button type="button" class="btn-close-modal px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-xs font-semibold">Batal</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold">Simpan Perubahan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <div id="setting-pane-theme" class="setting-tab-pane hidden space-y-5">
+          <div class="grid grid-cols-2 gap-4">
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="light">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800">Light Theme</h5>
+              <p class="text-xs text-slate-500 mt-0.5">Modern Clean</p>
+            </button>
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="dark">
+              <div class="w-10 h-10 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-moon"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800 dark:text-slate-100">Dark Mode</h5>
+              <p class="text-xs text-slate-500 mt-0.5">Minim Silau</p>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL POP-UP 2: GUIDE (#modal-guide) -->
+  <div id="modal-guide" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] flex items-center justify-center text-base">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white">Panduan Pengguna (User Guide)</h3>
+            <p class="text-xs text-slate-400">EduGrade v1.0 &bull; INVENTION 2026</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="flex overflow-x-auto border-b border-slate-100 dark:border-slate-700/80 px-4 sm:px-6 scrollbar-none">
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold rounded-lg my-1 mr-1 transition-colors active bg-blue-600 text-white" data-tab="tentang">Tentang</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="faq">FAQ</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="tutorial">Tutorial</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="glosarium">Glosarium</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100" data-tab="contact">Contact</button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-600 dark:text-slate-300">
+        <div id="guide-pane-tentang" class="guide-tab-pane space-y-3">
+          <p>EduGrade v1.0 adalah platform analytics edukasi untuk lomba <strong>INVENTION 2026</strong> ("Building Smarter Communities Through Digital Learning").</p>
+        </div>
+        <div id="guide-pane-faq" class="guide-tab-pane hidden space-y-3">
+          <p><strong>Q1: Apakah data nilai saya aman?</strong><br>A: Sangat aman. Seluruh data dimasukkan tersimpan 100% secara lokal di browser kamu (localStorage) dan tidak dikirim ke server luar mana pun.</p>
+          <p><strong>Q2: Dari mana sumber data keketatan PTN diperoleh?</strong><br>A: Data daya tampung dan peminat dihimpun secara terintegrasi dari portal resmi SNPMB Kemendikbudristek.</p>
+          <p><strong>Q3: Bagaimana fitur Simulasi OCR bekerja?</strong><br>A: Fitur ini menggunakan pemroses data client-side untuk membaca sampel dokumen dan mengisi form secara otomatis sebagai bentuk demonstrasi sistem cerdas.</p>
+        </div>
+        <div id="guide-pane-tutorial" class="guide-tab-pane hidden space-y-2 text-xs">
+          <p><strong>Step 1:</strong> Input atau Pindai Data Nilai</p>
+          <p><strong>Step 2:</strong> Pilih Target PTN & Program Studi</p>
+          <p><strong>Step 3:</strong> Tinjau Indeks Kesiapan</p>
+          <p><strong>Step 4:</strong> Manfaatkan Alat Pelajar</p>
+        </div>
+        <div id="guide-pane-glosarium" class="guide-tab-pane hidden space-y-2 text-xs">
+          <p><strong>Indeks Kesiapan Akademik:</strong> Skor komposit 0–100% dari gabungan tren nilai, bobot mapel pendukung, dan tingkat kompetisi.</p>
+          <p><strong>Keketatan (%):</strong> Persentase rasio daya tampung dibanding total peminat tahun sebelumnya.</p>
+          <p><strong>Matpel Pendukung:</strong> Mata pelajaran utama yang diprioritaskan sesuai ketentuan Kurikulum Merdeka.</p>
+        </div>
+        <div id="guide-pane-contact" class="guide-tab-pane hidden space-y-3 text-xs">
+          <p>Email Bantuan: support@edugrade.id</p>
+        </div>
+      </div>
+
+      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-850 flex justify-end">
+        <button class="btn-close-modal px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold">Tutup Panduan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- jQuery CDN -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- LocalStorage Engine, Calculations, Global UI & Page Script -->
+  <script src="js/storage.js"></script>
+  <script src="js/calculations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/alat-pelajar.js"></script>
+
+</body>
+</html>

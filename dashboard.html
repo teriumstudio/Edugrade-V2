@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — EduGrade v1.0 | Platform Analytics & Student Tools</title>
+  <meta name="description" content="EduGrade v1.0 — Platform Analytics & Student Tools untuk lomba INVENTION 2026. Subtema: Building Smarter Communities Through Digital Learning.">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef6ff',
+              100: '#d9ebff',
+              500: '#0066FF',
+              600: '#0052cc',
+              700: '#0041a8',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Font Awesome Icons CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-[#F0F4F9] dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200">
+
+  <!-- WRAPPER UTAMA DENGAN SOLID PRIMARY SIDEBAR -->
+  <div class="flex flex-1 min-h-screen">
+
+    <!-- DESKTOP PRIMARY SIDEBAR (#0066FF) -->
+    <aside class="hidden lg:flex w-72 bg-[#0066FF] flex-col justify-between p-6 text-white shadow-xl z-30">
+      <div>
+        <!-- BRAND LOGO & SUBTEMA -->
+        <div class="flex items-center space-x-3 mb-8">
+          <div class="w-11 h-11 bg-white text-[#0066FF] rounded-2xl flex items-center justify-center text-xl font-black shadow-md">
+            <i class="fa-solid fa-graduation-cap"></i>
+          </div>
+          <div>
+            <div class="flex items-center space-x-1.5">
+              <span class="text-xl font-extrabold tracking-tight">EduGrade</span>
+              <span class="text-[10px] bg-white/20 px-2 py-0.5 rounded-full font-bold">v1.0</span>
+            </div>
+            <p class="text-[11px] text-blue-100/80 font-medium">INVENTION 2026</p>
+          </div>
+        </div>
+
+        <!-- BADGE SUBTEMA LOMBA -->
+        <div class="bg-white/10 rounded-xl p-3 mb-6 border border-white/10">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200 block mb-0.5">Subtema Lomba</span>
+          <p class="text-xs text-blue-50 font-medium leading-snug">"Building Smarter Communities Through Digital Learning"</p>
+        </div>
+
+        <!-- MENU UTAMA NAVIGASI -->
+        <nav class="space-y-1.5" aria-label="Menu Utama">
+          <!-- 1. Dashboard (Aktif) -->
+          <a href="dashboard.html" data-page="dashboard" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 font-bold bg-white text-[#0066FF] shadow-sm">
+            <i class="fa-solid fa-chart-pie w-5 text-center mr-3"></i>
+            <span>Dashboard</span>
+          </a>
+
+          <!-- 2. Analisis Nilai -->
+          <a href="analisa-nilai.html" data-page="analisa" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-chart-line w-5 text-center mr-3"></i>
+            <span>Analisis Nilai</span>
+          </a>
+
+          <!-- 3. Alat Pelajar -->
+          <a href="alat-pelajar.html" data-page="alat" class="nav-link-item flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-toolbox w-5 text-center mr-3"></i>
+            <span>Alat Pelajar</span>
+          </a>
+
+          <div class="pt-4 pb-2 border-t border-white/15 my-2">
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-200/80 px-4">Pengaturan & Bantuan</span>
+          </div>
+
+          <!-- 4. Setting (Membuka Modal Setting) -->
+          <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-gear w-5 text-center mr-3"></i>
+            <span>Setting</span>
+          </button>
+
+          <!-- 5. Guide (Membuka Modal Guide) -->
+          <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-circle-question w-5 text-center mr-3"></i>
+            <span>Guide</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- FOOTER SIDEBAR -->
+      <div class="pt-4 border-t border-white/15 text-[11px] text-blue-200/70">
+        <p class="font-medium text-white/90">EduGrade v1.0 Platform</p>
+        <p>SNPMB Kemendikbudristek Data Engine</p>
+      </div>
+    </aside>
+
+    <!-- MOBILE SIDEBAR DRAWER -->
+    <div id="mobile-sidebar-drawer" class="fixed inset-0 z-50 hidden">
+      <div id="mobile-sidebar-backdrop" class="absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+      <div class="relative w-72 max-w-[80vw] h-full bg-[#0066FF] text-white p-6 flex flex-col justify-between shadow-2xl">
+        <div>
+          <div class="flex items-center justify-between mb-8">
+            <div class="flex items-center space-x-2.5">
+              <div class="w-10 h-10 bg-white text-[#0066FF] rounded-xl flex items-center justify-center text-lg font-black">
+                <i class="fa-solid fa-graduation-cap"></i>
+              </div>
+              <div>
+                <span class="text-lg font-bold">EduGrade v1.0</span>
+                <p class="text-[10px] text-blue-100/80">INVENTION 2026</p>
+              </div>
+            </div>
+            <button id="btn-close-mobile-menu" class="p-2 text-white/80 hover:text-white">
+              <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+          </div>
+
+          <nav class="space-y-2">
+            <a href="dashboard.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-bold bg-white text-[#0066FF]">
+              <i class="fa-solid fa-chart-pie w-5 mr-3"></i>Dashboard
+            </a>
+            <a href="analisa-nilai.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-chart-line w-5 mr-3"></i>Analisis Nilai
+            </a>
+            <a href="alat-pelajar.html" class="flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15">
+              <i class="fa-solid fa-toolbox w-5 mr-3"></i>Alat Pelajar
+            </a>
+            <div class="pt-3 border-t border-white/15 my-2"></div>
+            <button data-modal-trigger="setting" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-gear w-5 mr-3"></i>Setting
+            </button>
+            <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm font-medium text-blue-100 hover:bg-white/15 text-left">
+              <i class="fa-solid fa-circle-question w-5 mr-3"></i>Guide
+            </button>
+          </nav>
+        </div>
+
+        <div class="text-xs text-blue-200/80 pt-4 border-t border-white/15">
+          EduGrade v1.0 &bull; INVENTION 2026
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN CANVAS AREA (#F0F4F9) -->
+    <main class="flex-1 flex flex-col min-w-0 overflow-y-auto">
+
+      <!-- HEADER GLOBAL (Berlaku di Semua Halaman Utama) -->
+      <header class="sticky top-0 z-20 bg-[#F0F4F9]/90 dark:bg-[#0b1329]/90 backdrop-blur-md px-6 lg:px-10 py-4 border-b border-slate-200/60 dark:border-slate-800/60">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+          <!-- Pojok Kiri: Teks Nama Halaman Aktif -->
+          <div class="flex items-center space-x-3">
+            <button id="btn-toggle-mobile-menu" class="lg:hidden p-2 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200">
+              <i class="fa-solid fa-bars text-base"></i>
+            </button>
+            <div>
+              <span class="text-lg lg:text-xl font-black tracking-tight text-slate-800 dark:text-white">[Dashboard]</span>
+              <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Ringkasan kesiapan akademik & histori belajar</p>
+            </div>
+          </div>
+
+          <!-- Pojok Kanan: Floating Card Profile -->
+          <div class="flex items-center space-x-3">
+            <!-- Theme quick toggle shortcut -->
+            <button data-modal-trigger="setting" class="p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-[#0066FF] shadow-xs" title="Pengaturan Akun & Tema">
+              <i class="fa-solid fa-sliders text-sm"></i>
+            </button>
+
+            <!-- Floating Card Profile (Foto Profil, Nama: Bhisma, Kelas: XII IPA) -->
+            <div data-modal-trigger="setting" class="cursor-pointer flex items-center space-x-3 bg-white dark:bg-slate-800 px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:shadow-md transition-shadow">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar Siswa" class="header-user-avatar w-9 h-9 rounded-full object-cover ring-2 ring-[#0066FF]/20">
+              <div class="text-left hidden sm:block">
+                <h4 class="header-user-name text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight">Bhisma</h4>
+                <p class="header-user-class text-[11px] font-semibold text-[#0066FF] dark:text-blue-400 leading-tight">XII IPA</p>
+              </div>
+              <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- CONTENT BODY DASHBOARD -->
+      <div class="flex-1 px-6 lg:px-10 py-6 max-w-6xl mx-auto w-full space-y-8">
+
+        <!-- 1. HERO SECTION -->
+        <section class="bg-gradient-to-r from-blue-700 via-[#0066FF] to-sky-500 rounded-3xl p-6 lg:p-8 text-white shadow-lg relative overflow-hidden">
+          <div class="absolute -right-12 -top-12 w-64 h-64 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+
+          <!-- Teks Salam & Subtitle -->
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+            <div>
+              <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-md px-3 py-1 rounded-full text-xs font-medium text-blue-100 mb-3">
+                <i class="fa-solid fa-sparkles text-amber-300"></i>
+                <span>Building Smarter Communities Through Digital Learning</span>
+              </div>
+              <h1 class="hero-greeting-text text-2xl lg:text-4xl font-extrabold tracking-tight">Selamat malam, Bhisma.</h1>
+              <p class="text-sm lg:text-base text-blue-100 mt-1 font-medium">Berikut progress kesiapan akademik mu</p>
+            </div>
+
+            <!-- Streak Belajar Card -->
+            <div class="bg-white/15 backdrop-blur-md rounded-2xl p-4 border border-white/20 flex items-center space-x-4 self-start md:self-auto">
+              <div class="w-12 h-12 rounded-xl bg-amber-400 text-amber-900 flex items-center justify-center text-2xl shadow-md">
+                <i class="fa-solid fa-fire"></i>
+              </div>
+              <div>
+                <span class="text-xs text-blue-100 block font-medium">Streak Belajar</span>
+                <span id="stat-streak-hari" class="text-xl font-black text-white">12 hari</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATISTIK CARD / HERO BANNER -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+            <!-- Metric 1: Rata-Rata Nilai Rapor -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-blue-100">Rata-Rata Nilai Rapor</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-white/20 font-bold">Sem 1-5</span>
+              </div>
+              <div class="flex items-baseline space-x-2">
+                <span id="stat-rapor-avg" class="text-3xl lg:text-4xl font-black text-white">93.4</span>
+                <span class="text-xs text-blue-200">/ 100 Skala Kurmer</span>
+              </div>
+              <p class="text-[11px] text-blue-100/80 mt-2"><i class="fa-solid fa-circle-check text-emerald-300 mr-1"></i>Tuntas seluruh batas KKM</p>
+            </div>
+
+            <!-- Metric 2: Prediksi Rata-Rata Tryout TKA -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-blue-100">Prediksi Nilai Tryout TKA</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-400/25 text-emerald-200 font-bold">Regresi Linier</span>
+              </div>
+              <div class="flex items-baseline space-x-2">
+                <span id="stat-tka-pred" class="text-3xl lg:text-4xl font-black text-white">760</span>
+                <span class="text-xs text-blue-200">Poin TO Selanjutnya</span>
+              </div>
+              <p class="text-[11px] text-blue-100/80 mt-2"><i class="fa-solid fa-arrow-trend-up text-emerald-300 mr-1"></i>3 Mapel Wajib + 2 Pilihan</p>
+            </div>
+
+            <!-- Metric 3: Prediksi Rata-Rata Tryout UTBK -->
+            <div class="bg-white/10 backdrop-blur-md rounded-2xl p-5 border border-white/15 sm:col-span-2 lg:col-span-1">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-xs font-semibold text-blue-100">Prediksi Nilai Tryout UTBK</span>
+                <span class="text-xs px-2 py-0.5 rounded-full bg-emerald-400/25 text-emerald-200 font-bold">7 Subtes SNBT</span>
+              </div>
+              <div class="flex items-baseline space-x-2">
+                <span id="stat-utbk-pred" class="text-3xl lg:text-4xl font-black text-white">750</span>
+                <span class="text-xs text-blue-200">Poin Ambang Batas</span>
+              </div>
+              <p class="text-[11px] text-blue-100/80 mt-2"><i class="fa-solid fa-bullseye text-amber-300 mr-1"></i>Melampaui target mayoritas PTN</p>
+            </div>
+          </div>
+
+          <!-- PROGRESS BAR KESIAPAN PTN & BUTTON CTA "ANALISIS LANJUT >" -->
+          <div class="bg-white/15 backdrop-blur-md rounded-2xl p-5 border border-white/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="flex-1">
+              <div class="flex items-center justify-between mb-2 text-xs font-bold">
+                <span class="text-blue-100">Indeks Kesiapan Akademik PTN</span>
+                <span id="stat-readiness-percent" class="text-white text-sm">84.5%</span>
+              </div>
+              <div class="w-full bg-black/20 rounded-full h-3 overflow-hidden p-0.5">
+                <div id="stat-readiness-bar" class="bg-gradient-to-r from-amber-300 to-emerald-400 h-full rounded-full transition-all duration-700" style="width: 84.5%;"></div>
+              </div>
+              <span id="stat-readiness-label" class="text-[11px] text-blue-100/90 mt-1.5 block">Sangat Siap &amp; Kompetitif untuk Jalur SNBP &amp; SNBT</span>
+            </div>
+
+            <a href="analisa-nilai.html" class="btn-hero-pulse inline-flex items-center justify-center px-6 py-3.5 bg-white text-[#0066FF] hover:bg-blue-50 font-extrabold text-sm rounded-xl shadow-md transition-all whitespace-nowrap">
+              <span>Analisis Lanjut</span>
+              <i class="fa-solid fa-chevron-right ml-2 text-xs"></i>
+            </a>
+          </div>
+        </section>
+
+        <!-- 2. SECTION 2: RECENTLY STUDY TOOLS -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-black text-slate-800 dark:text-white tracking-tight">Recently Study Tools</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Peralatan instan pendukung efektivitas belajar kamu</p>
+            </div>
+            <a href="alat-pelajar.html" class="text-xs font-bold text-[#0066FF] dark:text-blue-400 hover:underline">
+              Buka Semua Tools &rarr;
+            </a>
+          </div>
+
+          <!-- FORMAT CARD RECENTLY STUDY TOOLS (Icon, Nama, Penjelasan, CTA) -->
+          <div id="recent-tools-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Injected via dashboard.js -->
+          </div>
+        </section>
+
+        <!-- 3. SECTION RINGKASAN TARGET PTN (PETA PILIHAN AKADEMIK) -->
+        <section class="space-y-4">
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-xl font-black text-slate-800 dark:text-white tracking-tight">Peta Peluang 4 PTN Impian</h3>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Rasionalisasi otomatis berbasis passing grade & keketatan resmi SNPMB</p>
+            </div>
+            <a href="analisa-nilai.html#rasionalisasi" class="text-xs font-bold text-[#0066FF] dark:text-blue-400 hover:underline">
+              Kelola Pilihan PTN &rarr;
+            </a>
+          </div>
+
+          <div id="dashboard-ptn-summary-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Injected via dashboard.js -->
+          </div>
+        </section>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- ========================================================
+       MODAL POP-UP 1: SETTING (#modal-setting)
+       ======================================================== -->
+  <div id="modal-setting" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-lg bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-base">
+            <i class="fa-solid fa-gear"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white leading-tight">Pengaturan EduGrade</h3>
+            <p class="text-xs text-slate-400">Kelola preferensi akun & tema antarmuka</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- 2 Sub-Tab Navigasi: [Profile] | [Theme] -->
+      <div class="flex border-b border-slate-100 dark:border-slate-700/80 px-6">
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 active" data-tab="profile">
+          <i class="fa-regular fa-user mr-2"></i>Profile
+        </button>
+        <button class="tab-setting-btn py-3 px-4 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700" data-tab="theme">
+          <i class="fa-solid fa-palette mr-2"></i>Theme
+        </button>
+      </div>
+
+      <!-- Tab Content Area -->
+      <div class="p-6">
+        
+        <!-- SUB-TAB 1: PROFILE -->
+        <div id="setting-pane-profile" class="setting-tab-pane space-y-4">
+          <form id="form-setting-profile" class="space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Nama Lengkap</label>
+              <input type="text" id="input-setting-nama" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" required>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Kelas Saat Ini</label>
+              <input type="text" id="input-setting-kelas" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Contoh: XII IPA 1" required>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-1">Ubah Password Baru (Opsional)</label>
+              <input type="password" id="input-setting-password" class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Kosongkan jika tidak diubah">
+            </div>
+
+            <!-- Caption Peringatan -->
+            <p class="text-xs text-rose-500 font-medium italic">
+              *Pastikan semua data yang di masukkan benar!
+            </p>
+
+            <!-- Action Buttons: Simpan & Reset Akun -->
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-3">
+              <button type="button" id="btn-reset-akun" class="px-4 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition-colors">
+                <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>Reset Akun
+              </button>
+              
+              <div class="flex items-center space-x-2">
+                <button type="button" class="btn-close-modal px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 transition-colors">
+                  Batal
+                </button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#0066FF] hover:bg-blue-700 text-white text-xs font-bold transition-colors shadow-sm">
+                  Simpan Perubahan
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- SUB-TAB 2: THEME -->
+        <div id="setting-pane-theme" class="setting-tab-pane hidden space-y-5">
+          <div>
+            <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100 mb-1">Skema Tampilan Global</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Pilih tema antarmuka yang nyaman untuk mata kamu saat belajar intensif.</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <!-- Pilihan Light Theme -->
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="light">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-sun"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800">Light Theme</h5>
+              <p class="text-xs text-slate-500 mt-0.5">Modern Clean Soft-Blue</p>
+            </button>
+
+            <!-- Pilihan Dark Theme -->
+            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="dark">
+              <div class="w-10 h-10 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center text-lg mb-3">
+                <i class="fa-solid fa-moon"></i>
+              </div>
+              <h5 class="text-sm font-bold text-slate-800 dark:text-slate-100">Dark Mode</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Kontras tinggi & minim silau</p>
+            </button>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700 flex items-center justify-between text-xs">
+            <span class="text-slate-500 dark:text-slate-300">Status Tema Aktif:</span>
+            <div class="flex items-center space-x-2 font-bold text-slate-700 dark:text-slate-200">
+              <span class="theme-current-icon"></span>
+              <span class="theme-current-label">Mode Terang (Light)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================
+       MODAL POP-UP 2: GUIDE (#modal-guide)
+       ======================================================== -->
+  <div id="modal-guide" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div class="modal-backdrop absolute inset-0 bg-slate-900/60 backdrop-blur-xs"></div>
+    <div class="modal-content-box relative w-full max-w-2xl bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden flex flex-col z-10 max-h-[90vh]">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 border-b border-slate-100 dark:border-slate-700/80 flex items-center justify-between">
+        <div class="flex items-center space-x-2.5">
+          <div class="w-9 h-9 rounded-xl bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-base">
+            <i class="fa-solid fa-book-open"></i>
+          </div>
+          <div>
+            <h3 class="text-lg font-bold text-slate-800 dark:text-white leading-tight">Panduan Pengguna (User Guide)</h3>
+            <p class="text-xs text-slate-400">EduGrade v1.0 &bull; INVENTION 2026</p>
+          </div>
+        </div>
+        <button class="btn-close-modal p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <!-- 5 Sub-Tab Navigasi: [Tentang] | [FAQ] | [Tutorial] | [Glosarium] | [Contact] -->
+      <div class="flex overflow-x-auto border-b border-slate-100 dark:border-slate-700/80 px-4 sm:px-6 scrollbar-none">
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold rounded-lg my-1 mr-1 transition-colors active bg-blue-600 text-white" data-tab="tentang">Tentang</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="faq">FAQ</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="tutorial">Tutorial</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="glosarium">Glosarium</button>
+        <button class="tab-guide-btn py-3 px-3.5 text-xs sm:text-sm font-semibold text-slate-600 dark:text-slate-300 rounded-lg my-1 mr-1 transition-colors hover:bg-slate-100 dark:hover:bg-slate-700" data-tab="contact">Contact</button>
+      </div>
+
+      <!-- Tab Content Area Scrollable -->
+      <div class="p-6 overflow-y-auto space-y-4 text-sm text-slate-600 dark:text-slate-300">
+        
+        <!-- 1. TAB TENTANG -->
+        <div id="guide-pane-tentang" class="guide-tab-pane space-y-4">
+          <div class="p-4 rounded-2xl bg-blue-50/70 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-900/40">
+            <h4 class="font-extrabold text-[#0066FF] dark:text-blue-400 text-base mb-1">EduGrade v1.0 — Platform Analytics &amp; Student Tools</h4>
+            <p class="text-xs leading-relaxed text-slate-600 dark:text-slate-300">
+              Dikembangkan khusus untuk perlombaan <strong>INVENTION 2026</strong> dengan subtema <em>"Building Smarter Communities Through Digital Learning"</em>.
+            </p>
+          </div>
+          <p class="leading-relaxed">
+            EduGrade v1.0 dirancang untuk memberdayakan pelajar SMA/K sederajat di seluruh Indonesia dalam mengelola data akademik secara mandiri, terukur, dan transparan. Melalui pendekatan rekayasa regresi linier dan integrasi passing grade resmi SNPMB, siswa dapat memahami peluang seleksi perguruan tinggi negeri secara objektif.
+          </p>
+          <div class="border-t border-slate-100 dark:border-slate-700 pt-3">
+            <h5 class="text-xs font-bold text-slate-700 dark:text-slate-200 uppercase tracking-wider mb-2">Atribusi Open Source &amp; Lisensi</h5>
+            <ul class="text-xs space-y-1 text-slate-500 dark:text-slate-400">
+              <li>&bull; Framework CSS: Tailwind CSS (MIT License via CDN)</li>
+              <li>&bull; Javascript Library: jQuery 3.7.1 (MIT License via CDN)</li>
+              <li>&bull; Icon Library: FontAwesome 6 Free (CC BY 4.0 / SIL OFL 1.1)</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 2. TAB FAQ -->
+        <div id="guide-pane-faq" class="guide-tab-pane hidden space-y-3.5">
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+            <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q1: Apakah data nilai saya aman?</h5>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <strong>A:</strong> Sangat aman. Seluruh data dimasukkan tersimpan 100% secara lokal di browser kamu (localStorage) dan tidak dikirim ke server luar mana pun.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+            <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q2: Dari mana sumber data keketatan PTN diperoleh?</h5>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <strong>A:</strong> Data daya tampung dan peminat dihimpun secara terintegrasi dari portal resmi SNPMB Kemendikbudristek.
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+            <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q3: Bagaimana fitur Simulasi OCR bekerja?</h5>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              <strong>A:</strong> Fitur ini menggunakan pemroses data client-side untuk membaca sampel dokumen dan mengisi form secara otomatis sebagai bentuk demonstrasi sistem cerdas.
+            </p>
+          </div>
+        </div>
+
+        <!-- 3. TAB TUTORIAL -->
+        <div id="guide-pane-tutorial" class="guide-tab-pane hidden space-y-3.5">
+          <div class="flex items-start space-x-3">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <div>
+              <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 1: Input atau Pindai Data Nilai</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Buka menu Analisa Nilai, lalu ketikkan nilai akademikmu atau gunakan fitur pemindai/preset contoh rapor untuk mengisi data secara cepat.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <div>
+              <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 2: Pilih Target PTN &amp; Program Studi</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tentukan universitas dan jurusan impian pada PTN Matchmaker untuk mengukur rasio keketatan dan peta persaingan.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <div>
+              <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 3: Tinjau Indeks Kesiapan</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Sistem akan menganalisis tren perkembangan nilai serta menghitung Indeks Kesiapan Akademik kamu secara otomatis.</p>
+            </div>
+          </div>
+
+          <div class="flex items-start space-x-3">
+            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+            <div>
+              <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 4: Manfaatkan Alat Pelajar</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Gunakan koleksi Student Tools (Pomodoro, Pembersih Teks, Generator Sitasi, Perencana Jadwal) untuk membantu tugas harianmu.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. TAB GLOSARIUM -->
+        <div id="guide-pane-glosarium" class="guide-tab-pane hidden space-y-3">
+          <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+            <h5 class="font-bold text-[#0066FF] dark:text-blue-400 text-xs">Indeks Kesiapan Akademik</h5>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Skor komposit (0–100%) yang menghitung gabungan tren nilai, bobot mata pelajaran pendukung, dan tingkat kompetisi jurusan.</p>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+            <h5 class="font-bold text-[#0066FF] dark:text-blue-400 text-xs">Keketatan (%)</h5>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Persentase rasio daya tampung dibanding total peminat tahun sebelumnya. Semakin kecil angkanya, semakin tinggi tingkat persaingannya.</p>
+          </div>
+
+          <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200/80 dark:border-slate-700">
+            <h5 class="font-bold text-[#0066FF] dark:text-blue-400 text-xs">Matpel Pendukung</h5>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Mata pelajaran utama yang diprioritaskan sesuai ketentuan Kurikulum Merdeka untuk program studi tertentu.</p>
+          </div>
+        </div>
+
+        <!-- 5. TAB CONTACT -->
+        <div id="guide-pane-contact" class="guide-tab-pane hidden space-y-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-700">
+              <span class="text-slate-400 block mb-0.5">Help Desk Siswa</span>
+              <strong class="text-slate-800 dark:text-white">support@edugrade.id</strong>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-700/40 border border-slate-200 dark:border-slate-700">
+              <span class="text-slate-400 block mb-0.5">Kompetisi</span>
+              <strong class="text-slate-800 dark:text-white">INVENTION 2026</strong>
+            </div>
+          </div>
+
+          <form id="form-guide-feedback" class="space-y-3 pt-2">
+            <span class="text-xs font-bold text-slate-700 dark:text-slate-200 block">Kirim Masukan &amp; Feedback Juri</span>
+            <textarea class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Tuliskan catatan atau apresiasi untuk pengembang EduGrade..." required></textarea>
+            <button type="submit" class="px-4 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors">
+              Kirim Feedback
+            </button>
+          </form>
+        </div>
+
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-850 flex justify-end">
+        <button class="btn-close-modal px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-300 transition-colors">
+          Tutup Panduan
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- jQuery via CDN (Satu-satunya JS Library yang Diperbolehkan) -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+  <!-- LocalStorage Engine & Calculations -->
+  <script src="js/storage.js"></script>
+  <script src="js/calculations.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/dashboard.js"></script>
+
+</body>
+</html>
