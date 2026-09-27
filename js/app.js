@@ -66,8 +66,13 @@ function applyTheme(theme) {
 }
 
 function updateThemeToggleUI(theme) {
-  $('.btn-theme-select').removeClass('ring-2 ring-blue-500 border-blue-500 bg-blue-50 dark:bg-blue-900/30');
-  $(`.btn-theme-select[data-theme="${theme}"]`).addClass('ring-2 ring-blue-500 border-blue-500 bg-blue-50 dark:bg-blue-900/30');
+  $('.btn-theme-select')
+    .removeClass('ring-2 ring-blue-500 border-blue-500 bg-blue-50 dark:bg-blue-900/40')
+    .addClass('border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80');
+  
+  $(`.btn-theme-select[data-theme="${theme}"]`)
+    .removeClass('border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80')
+    .addClass('ring-2 ring-blue-500 border-blue-500 bg-blue-50 dark:bg-blue-900/40');
   
   const iconHtml = theme === 'dark' ? '<i class="fa-solid fa-moon text-blue-400"></i>' : '<i class="fa-solid fa-sun text-amber-500"></i>';
   $('.theme-current-icon').html(iconHtml);
@@ -91,8 +96,35 @@ function setupGlobalModals() {
   });
 
   // Tombol Tutup Modal (Semua modal)
-  $(document).on('click', '.btn-close-modal, .modal-backdrop', function () {
-    closeAllModals();
+  $(document).on('click', '.btn-close-modal', function (e) {
+    e.preventDefault();
+    const parentModal = $(this).closest('[id^="modal-"], .generic-popup-modal');
+    if (parentModal.length) {
+      parentModal.addClass('hidden').removeClass('flex');
+      if (parentModal.attr('id') === 'modal-ocr-scanner' && typeof OCRScannerService !== 'undefined' && OCRScannerService.cancelScan) {
+        OCRScannerService.cancelScan();
+      }
+    } else {
+      closeAllModals();
+    }
+  });
+
+  $(document).on('click', '.modal-backdrop', function () {
+    const parentModal = $(this).closest('[id^="modal-"], .generic-popup-modal');
+    if (parentModal.length) {
+      parentModal.addClass('hidden').removeClass('flex');
+      if (parentModal.attr('id') === 'modal-ocr-scanner' && typeof OCRScannerService !== 'undefined' && OCRScannerService.cancelScan) {
+        OCRScannerService.cancelScan();
+      }
+    } else {
+      closeAllModals();
+    }
+  });
+
+  $(document).on('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeAllModals();
+    }
   });
 
   // Cegah penutupan modal saat klik di dalam modal-box
@@ -156,6 +188,18 @@ function setupGlobalModals() {
     }
   });
 
+  // Tombol Logout Global
+  $(document).on('click', '.btn-logout', function (e) {
+    e.preventDefault();
+    if (confirm('Apakah kamu yakin ingin keluar dari akun?')) {
+      StorageService.logout();
+      showToast('Kamu telah keluar dari akun. Mengalihkan ke Beranda...', 'info');
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 500);
+    }
+  });
+
   // Feedback form di Guide Modal Contact Tab
   $(document).on('submit', '#form-guide-feedback', function (e) {
     e.preventDefault();
@@ -181,9 +225,12 @@ function openGuideModal() {
 }
 
 function closeAllModals() {
-  $('#modal-setting').addClass('hidden').removeClass('flex');
-  $('#modal-guide').addClass('hidden').removeClass('flex');
+  $('[id^="modal-"]').addClass('hidden').removeClass('flex');
   $('.generic-popup-modal').addClass('hidden').removeClass('flex');
+  
+  if (typeof OCRScannerService !== 'undefined' && OCRScannerService.cancelScan) {
+    OCRScannerService.cancelScan();
+  }
 }
 
 /**

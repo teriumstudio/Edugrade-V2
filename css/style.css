@@ -7,6 +7,15 @@
   --card-bg: #FFFFFF;
 }
 
+html {
+  background-color: #F0F4F9;
+}
+
+html.dark {
+  background-color: #0b1329;
+  color-scheme: dark;
+}
+
 body {
   font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   background-color: var(--canvas-bg);

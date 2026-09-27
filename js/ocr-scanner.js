@@ -17,7 +17,10 @@ const OCRScannerService = {
     { id: 'sub-ocr-10', nama: 'Biologi', tipe: 'Peminatan', kkm: 75, sem1: 87, sem2: 89, sem3: 91, sem4: 93, sem5: 94 }
   ],
 
+  currentInterval: null,
+
   startScan(onProgress, onComplete) {
+    this.cancelScan();
     let step = 0;
     const steps = [
       'Inisialisasi neural scanner client-side...',
@@ -27,14 +30,21 @@ const OCRScannerService = {
       'Verifikasi KKM & validasi matematis...'
     ];
 
-    const interval = setInterval(() => {
+    this.currentInterval = setInterval(() => {
       if (step < steps.length) {
         onProgress(steps[step], Math.round(((step + 1) / steps.length) * 100));
         step++;
       } else {
-        clearInterval(interval);
+        this.cancelScan();
         onComplete(this.SAMPLE_OCR_DATA);
       }
     }, 450);
+  },
+
+  cancelScan() {
+    if (this.currentInterval) {
+      clearInterval(this.currentInterval);
+      this.currentInterval = null;
+    }
   }
 };

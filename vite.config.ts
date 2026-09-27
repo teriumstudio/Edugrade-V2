@@ -6,6 +6,8 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, 'index.html'),
+        home: path.resolve(__dirname, 'home.html'),
+        login: path.resolve(__dirname, 'login.html'),
         dashboard: path.resolve(__dirname, 'dashboard.html'),
         analisa: path.resolve(__dirname, 'analisa-nilai.html'),
         alat: path.resolve(__dirname, 'alat-pelajar.html')

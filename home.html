@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduApp — Analisis Nilai &amp; Kesiapan PTN dalam Satu Dashboard | EduGrade v1.0</title>
+  <meta name="description" content="EduApp (EduGrade v1.0) — Platform cerdas analisis nilai rapor, tryout TKA, UTBK, dan simulasi peluang masuk PTN impian untuk siswa SMA/SMK di seluruh Indonesia.">
+
+  <!-- Synchronous Theme Preloader -->
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('edugrade_theme');
+        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: '#0066FF',
+            'brand-dark': '#0052cc',
+            'brand-light': '#0077E6',
+            'canvas-dark': '#070D1E',
+            'card-dark': '#0F172A'
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .hero-gradient {
+      background: radial-gradient(120% 100% at 50% 0%, #0077E6 0%, #0060F0 45%, #004CC7 100%);
+    }
+    .cta-card-gradient {
+      background: linear-gradient(135deg, #2563EB 0%, #3B82F6 40%, #4F46E5 100%);
+    }
+  </style>
+</head>
+<body class="bg-white dark:bg-[#070D1E] text-slate-800 dark:text-slate-100 antialiased selection:bg-[#0066FF] selection:text-white">
+
+  <!-- ================= TOP HERO & NAVBAR AREA ================= -->
+  <div class="hero-gradient text-white relative overflow-hidden pb-20 lg:pb-32">
+    <!-- Ambient Blur Circles -->
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] bg-white/10 rounded-full blur-3xl pointer-events-none -mr-40 -mt-20"></div>
+    <div class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-blue-300/15 rounded-full blur-3xl pointer-events-none -ml-32 -mb-20"></div>
+
+    <!-- NAVBAR -->
+    <nav class="w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between relative z-20">
+      <!-- Brand Logo -->
+      <a href="home.html" class="flex items-center space-x-2.5 group">
+        <div class="w-9 h-9 rounded-xl bg-white text-[#0066FF] flex items-center justify-center font-bold text-lg shadow-md group-hover:scale-105 transition-transform">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <div class="flex items-baseline space-x-1.5">
+          <span class="text-2xl font-extrabold tracking-tight text-white">EduApp</span>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-blue-200 bg-white/15 px-2 py-0.5 rounded-full border border-white/20">2026</span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <div class="hidden md:flex items-center space-x-8 text-sm font-semibold text-blue-100">
+        <a href="#fitur" class="hover:text-white transition-colors">Fitur</a>
+        <a href="#cara-kerja" class="hover:text-white transition-colors">Cara Kerja</a>
+        <a href="#testimoni" class="hover:text-white transition-colors">Testimoni</a>
+        <a href="#faq" class="hover:text-white transition-colors">FAQ</a>
+      </div>
+
+      <!-- Right Actions: Masuk & Coba Gratis -->
+      <div class="flex items-center space-x-3">
+        <!-- Theme Toggle -->
+        <button id="btn-theme-toggle" class="w-9 h-9 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 flex items-center justify-center text-white text-xs transition-colors" title="Ubah Tema Gelap/Terang">
+          <i class="fa-solid fa-sun dark:hidden text-amber-300"></i>
+          <i class="fa-solid fa-moon hidden dark:inline text-blue-200"></i>
+        </button>
+
+        <!-- Dynamic Auth Buttons -->
+        <div id="nav-auth-guest" class="flex items-center space-x-2.5">
+          <a href="login.html" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold text-white border border-white/30 hover:bg-white/15 hover:border-white/50 transition-all">
+            Masuk
+          </a>
+          <a href="login.html?mode=signup" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#0066FF] hover:bg-blue-50 shadow-md hover:shadow-lg transition-all active:scale-95">
+            Coba Gratis
+          </a>
+        </div>
+
+        <div id="nav-auth-user" class="hidden items-center space-x-2">
+          <a href="dashboard.html" class="px-4 py-2 rounded-xl text-xs sm:text-sm font-bold bg-white text-[#0066FF] hover:bg-blue-50 shadow-md flex items-center space-x-2 transition-all">
+            <span>Buka Dashboard</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </a>
+        </div>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="btn-mobile-nav" class="md:hidden w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Mobile Drawer Navigation -->
+    <div id="mobile-nav-menu" class="hidden md:hidden px-6 pt-2 pb-6 space-y-3 bg-[#005cd4]/90 backdrop-blur-xl border-b border-white/20 relative z-20">
+      <a href="#fitur" class="block py-2 text-sm font-semibold text-white mobile-link">Fitur</a>
+      <a href="#cara-kerja" class="block py-2 text-sm font-semibold text-white mobile-link">Cara Kerja</a>
+      <a href="#testimoni" class="block py-2 text-sm font-semibold text-white mobile-link">Testimoni</a>
+      <a href="#faq" class="block py-2 text-sm font-semibold text-white mobile-link">FAQ</a>
+      <div class="pt-3 border-t border-white/20 flex flex-col space-y-2">
+        <a href="login.html" class="w-full text-center py-2.5 rounded-xl border border-white/40 text-xs font-bold text-white">Masuk ke Akun</a>
+        <a href="login.html?mode=signup" class="w-full text-center py-2.5 rounded-xl bg-white text-[#0066FF] text-xs font-bold shadow">Daftar Coba Gratis</a>
+      </div>
+    </div>
+
+    <!-- HERO MAIN CONTENT -->
+    <div class="w-full max-w-7xl mx-auto px-6 pt-10 lg:pt-16 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        
+        <!-- Left Hero Copy -->
+        <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+          
+          <!-- Announcement Pill -->
+          <div class="inline-flex items-center space-x-2 bg-white/15 border border-white/20 backdrop-blur-md px-3.5 py-1.5 rounded-full text-xs font-semibold text-blue-50 shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-amber-300"></span>
+            <span>Baru &bull; Simulasi PTN 2026 sudah tersedia</span>
+          </div>
+
+          <!-- Headline -->
+          <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-white leading-[1.12] tracking-tight">
+            Analisis Nilai &amp;<br>
+            <span class="text-[#FFD000]">Kesiapan PTN-mu</span><br>
+            dalam Satu Dashboard
+          </h1>
+
+          <!-- Subtitle -->
+          <p class="text-sm sm:text-base md:text-lg text-blue-100 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+            Pantau nilai rapor, TKA, dan UTBK dalam satu tempat. Simulasikan peluang masuk PTN impianmu dengan data yang akurat dan mudah dipahami.
+          </p>
+
+          <!-- CTA Buttons -->
+          <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+            <a href="login.html" class="px-6 py-3.5 rounded-2xl bg-white text-[#0066FF] font-bold text-sm shadow-xl hover:shadow-2xl hover:bg-blue-50 transition-all flex items-center space-x-2 group active:scale-95">
+              <span>Mulai Gratis</span>
+              <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
+            <a href="#cara-kerja" class="px-6 py-3.5 rounded-2xl bg-transparent border border-white/40 hover:bg-white/15 text-white font-bold text-sm transition-all flex items-center space-x-2">
+              <i class="fa-regular fa-circle-play text-sm"></i>
+              <span>Lihat Cara Kerja</span>
+            </a>
+          </div>
+
+          <!-- Social Proof / Stats -->
+          <div class="pt-6 border-t border-white/15 flex flex-wrap items-center justify-center lg:justify-start gap-8 text-left">
+            <div>
+              <p class="text-lg sm:text-xl font-extrabold text-white">10.000+</p>
+              <p class="text-xs text-blue-200">siswa aktif</p>
+            </div>
+            <div class="w-px h-8 bg-white/20"></div>
+            <div>
+              <p class="text-lg sm:text-xl font-extrabold text-white">50+</p>
+              <p class="text-xs text-blue-200">PTN terdata</p>
+            </div>
+            <div class="w-px h-8 bg-white/20"></div>
+            <div>
+              <p class="text-lg sm:text-xl font-extrabold text-white flex items-center gap-1">
+                <span>4.9/5</span>
+                <i class="fa-solid fa-star text-amber-300 text-xs"></i>
+              </p>
+              <p class="text-xs text-blue-200">rating pengguna</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Hero Mockup Preview -->
+        <div class="lg:col-span-5 relative flex justify-center">
+          
+          <!-- Floating Badge Top Left: +12% Peluang PTN -->
+          <div class="absolute -top-4 -left-2 sm:-left-6 z-20 bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-3.5 py-2 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 flex items-center space-x-2.5 animate-bounce" style="animation-duration: 3s;">
+            <span class="w-3 h-3 rounded-full bg-rose-500 ring-4 ring-rose-100 dark:ring-rose-900/50"></span>
+            <div class="text-left">
+              <span class="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 block leading-tight">+12%</span>
+              <span class="text-[10px] text-slate-400 font-semibold block leading-tight">Peluang PTN</span>
+            </div>
+          </div>
+
+          <!-- Realistic Browser Window Frame -->
+          <div class="w-full max-w-[460px] bg-white rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.35)] border border-white/50 overflow-hidden text-slate-800 transition-transform hover:scale-[1.01] duration-300">
+            
+            <!-- Window Topbar with Address bar -->
+            <div class="bg-slate-100 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between">
+              <div class="flex items-center space-x-1.5">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-400 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400 inline-block"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 inline-block"></span>
+              </div>
+              <div class="bg-white px-3 py-1 rounded-full text-[10px] font-mono text-slate-500 border border-slate-200/80 shadow-xs flex items-center space-x-1.5">
+                <i class="fa-solid fa-lock text-[8px] text-slate-400"></i>
+                <span>eduapp.id/dashboard</span>
+              </div>
+              <div class="w-8"></div>
+            </div>
+
+            <!-- Mockup Window Body -->
+            <div class="p-4 bg-slate-50 flex gap-3 text-[11px]">
+              
+              <!-- Mini Sidebar (Blue) -->
+              <div class="w-16 bg-[#0066FF] rounded-2xl p-2.5 text-white flex flex-col items-center justify-between shrink-0 shadow-sm">
+                <div class="space-y-3 w-full flex flex-col items-center">
+                  <div class="text-[8px] font-extrabold uppercase tracking-widest text-blue-200 border-b border-blue-400/30 pb-1.5 w-full text-center">
+                    EduApp
+                  </div>
+                  <div class="w-6 h-6 rounded-lg bg-white/20 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-chart-pie"></i>
+                  </div>
+                  <div class="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-calculator"></i>
+                  </div>
+                  <div class="w-6 h-6 rounded-lg bg-white/10 flex items-center justify-center text-xs">
+                    <i class="fa-solid fa-toolbox"></i>
+                  </div>
+                </div>
+                <div class="w-5 h-5 rounded-full bg-blue-400/40"></div>
+              </div>
+
+              <!-- Main Dashboard Area -->
+              <div class="flex-1 space-y-3">
+                
+                <!-- Header inside Mockup -->
+                <div class="flex items-center justify-between border-b border-slate-200/80 pb-2">
+                  <span class="font-bold text-xs text-slate-800">Dashboard</span>
+                  <div class="flex items-center space-x-1.5">
+                    <div class="w-5 h-5 rounded-full bg-blue-100 text-[#0066FF] font-bold text-[9px] flex items-center justify-center">B</div>
+                    <span class="text-[10px] font-semibold text-slate-600">Bhisma</span>
+                  </div>
+                </div>
+
+                <!-- Hero Metric Card: Analisis Kesiapan PTN -->
+                <div class="bg-gradient-to-r from-[#0066FF] to-blue-600 text-white p-3 rounded-2xl shadow-sm">
+                  <span class="text-[9px] font-semibold text-blue-100 uppercase tracking-wider block">Analisis Kesiapan PTN</span>
+                  <div class="flex items-baseline space-x-1 mt-0.5">
+                    <span class="text-xl font-extrabold">84,6</span>
+                    <span class="text-[10px] text-blue-200 font-semibold">/100</span>
+                  </div>
+                  <p class="text-[9px] text-amber-200 font-semibold mt-0.5">Sangat Memuaskan (A)</p>
+                  <div class="w-full bg-black/20 h-1.5 rounded-full mt-2 overflow-hidden">
+                    <div class="bg-amber-300 h-full rounded-full" style="width: 85%;"></div>
+                  </div>
+                </div>
+
+                <!-- Sub-card: Target PTN -->
+                <div class="bg-white p-2.5 rounded-xl border border-slate-200/80 shadow-xs flex items-center justify-between">
+                  <div>
+                    <h5 class="font-bold text-[10px] text-slate-800 leading-tight">Teknik Informatika</h5>
+                    <p class="text-[9px] text-slate-500 leading-tight">ITB &bull; STEI</p>
+                  </div>
+                  <div class="text-right text-[8px] text-slate-500 font-mono">
+                    <span class="bg-blue-50 text-[#0066FF] px-1.5 py-0.5 rounded font-bold">Kap: 58</span>
+                    <span class="bg-slate-100 px-1.5 py-0.5 rounded font-bold">Pem: 612</span>
+                  </div>
+                </div>
+
+                <!-- 3 Mini Metric Cards -->
+                <div class="grid grid-cols-3 gap-1.5 text-center">
+                  <div class="bg-white p-1.5 rounded-xl border border-slate-200/80">
+                    <span class="text-[8px] text-slate-400 block font-semibold">Rapor</span>
+                    <span class="text-[11px] font-bold text-slate-800">84,6</span>
+                  </div>
+                  <div class="bg-white p-1.5 rounded-xl border border-slate-200/80">
+                    <span class="text-[8px] text-slate-400 block font-semibold">TKA</span>
+                    <span class="text-[11px] font-bold text-slate-800">657</span>
+                  </div>
+                  <div class="bg-white p-1.5 rounded-xl border border-slate-200/80">
+                    <span class="text-[8px] text-slate-400 block font-semibold">UTBK</span>
+                    <span class="text-[11px] font-bold text-slate-800">758</span>
+                  </div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Floating Badge Bottom Right: 84,6 Nilai Akhir -->
+          <div class="absolute -bottom-4 -right-2 sm:-right-4 z-20 bg-white dark:bg-slate-800 text-slate-800 dark:text-white px-3.5 py-2 rounded-2xl shadow-2xl border border-slate-100 dark:border-slate-700 flex items-center space-x-2.5">
+            <div class="w-7 h-7 rounded-xl bg-blue-50 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-xs">
+              <i class="fa-solid fa-arrow-trend-up"></i>
+            </div>
+            <div>
+              <span class="text-xs font-extrabold text-slate-800 dark:text-white block leading-tight">84,6</span>
+              <span class="text-[10px] text-slate-400 font-semibold block leading-tight">Nilai Akhir</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= SECTION 1: FITUR UNGGULAN ================= -->
+  <section id="fitur" class="py-20 lg:py-28 bg-slate-50/70 dark:bg-[#070D1E] transition-colors">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
+          FITUR UNGGULAN
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Semua yang Kamu Butuhkan untuk Masuk PTN
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Dari analisis nilai hingga simulasi peluang — semua dalam satu platform.
+        </p>
+      </div>
+
+      <!-- 6 Features Grid (matching screenshot eduapp-features) -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Analisis Nilai Lengkap -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-chart-simple"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Analisis Nilai Lengkap</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Pantau nilai rapor, TKA, dan UTBK per semester dengan grafik dan predikat otomatis.
+          </p>
+        </div>
+
+        <!-- Card 2: Simulasi Peluang PTN -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-900/40 text-rose-500 dark:text-rose-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Simulasi Peluang PTN</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Hitung peluang masuk jurusan impian berdasarkan kapasitas &amp; peminat real-time.
+          </p>
+        </div>
+
+        <!-- Card 3: Pomodoro Timer -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-900/40 text-indigo-500 dark:text-indigo-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-clock"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Pomodoro Timer</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Kelola waktu belajar dengan teknik Pomodoro 25-5-15 menit untuk fokus maksimal.
+          </p>
+        </div>
+
+        <!-- Card 4: Catatan Pintar -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-900/40 text-amber-500 dark:text-amber-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-regular fa-file-lines"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Catatan Pintar</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Simpan catatan belajar dan akses kapan saja — terintegrasi dengan dashboard.
+          </p>
+        </div>
+
+        <!-- Card 5: Tracking Progres -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-900/40 text-emerald-500 dark:text-emerald-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-arrow-trend-up"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Tracking Progres</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Lihat perkembangan nilaimu dari semester ke semester dalam satu tampilan.
+          </p>
+        </div>
+
+        <!-- Card 6: Ranking & Predikat -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs hover:shadow-xl hover:-translate-y-1 transition-all">
+          <div class="w-12 h-12 rounded-2xl bg-yellow-50 dark:bg-yellow-900/40 text-amber-500 dark:text-amber-400 flex items-center justify-center text-xl mb-6">
+            <i class="fa-solid fa-trophy"></i>
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Ranking &amp; Predikat</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            Bandingkan nilai kamu dengan standar PTN dan dapatkan predikat A/B/C.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION 2: CARA KERJA ================= -->
+  <section id="cara-kerja" class="py-20 lg:py-28 bg-white dark:bg-[#0B1329] border-t border-slate-100 dark:border-slate-800 transition-colors">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
+          CARA KERJA
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          3 Langkah Mudah Menuju PTN Impian
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Mulai dalam hitungan menit, tanpa perlu ribet.
+        </p>
+      </div>
+
+      <!-- 3 Steps (matching screenshot eduapp-landing-page) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        
+        <!-- Step 1 -->
+        <div class="text-center space-y-4 px-4">
+          <div class="w-14 h-14 rounded-full bg-[#0066FF] text-white font-extrabold text-xl flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+            1
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Input Nilai Kamu</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xs mx-auto">
+            Masukkan nilai rapor per semester, TKA, dan UTBK. Cukup sekali input, tersimpan otomatis.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center space-y-4 px-4">
+          <div class="w-14 h-14 rounded-full bg-[#0066FF] text-white font-extrabold text-xl flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+            2
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Sistem Analisis Otomatis</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xs mx-auto">
+            Kami hitung rata-rata, prediksi, dan simulasi peluang berdasarkan data resmi PTN.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center space-y-4 px-4">
+          <div class="w-14 h-14 rounded-full bg-[#0066FF] text-white font-extrabold text-xl flex items-center justify-center mx-auto shadow-lg shadow-blue-500/20">
+            3
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 dark:text-white">Lihat Hasil &amp; Tips</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed max-w-xs mx-auto">
+            Dapatkan rekomendasi jurusan, target nilai, dan tips belajar untuk meningkatkan peluang.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION 3: TESTIMONI ================= -->
+  <section id="testimoni" class="py-20 lg:py-28 bg-slate-50/70 dark:bg-[#070D1E] border-t border-slate-100 dark:border-slate-800 transition-colors">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-2xl mx-auto space-y-3 mb-16">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
+          TESTIMONI
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Apa Kata Pengguna Kami
+        </h2>
+        <p class="text-sm sm:text-base text-slate-600 dark:text-slate-400">
+          Ribuan siswa sudah merasakan manfaatnya. Sekarang giliranmu.
+        </p>
+      </div>
+
+      <!-- 3 Testimonial Cards (matching screenshot) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        
+        <!-- Card 1: Fitra Amelia -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center space-x-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              &ldquo;Akhirnya aku tahu peluang masuk ITB dengan nilai raporku. Simulasinya akurat dan gampang dimengerti!&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+            <div class="w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm flex items-center justify-center shrink-0">
+              F
+            </div>
+            <div>
+              <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Fitra Amelia</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Siswa SMA 1 Bandung</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Budi Santoso -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center space-x-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              &ldquo;Dashboardnya bersih, seperti aplikasi profesional. Tidak menyangka gratis dan selengkap ini.&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+            <div class="w-10 h-10 rounded-full bg-emerald-600 text-white font-bold text-sm flex items-center justify-center shrink-0">
+              B
+            </div>
+            <div>
+              <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Budi Santoso</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Siswa SMAN 2 Jakarta</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Sinta Dewi -->
+        <div class="bg-white dark:bg-slate-800/80 p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700/80 shadow-xs flex flex-col justify-between space-y-6">
+          <div class="space-y-4">
+            <div class="flex items-center space-x-1 text-amber-400 text-sm">
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+              <i class="fa-solid fa-star"></i>
+            </div>
+            <p class="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed italic">
+              &ldquo;Fitur Pemetaan-nya bikin belajar lebih fokus. Sekarang nilai UTBK-ku naik signifikan!&rdquo;
+            </p>
+          </div>
+          <div class="flex items-center space-x-3 pt-4 border-t border-slate-100 dark:border-slate-700/60">
+            <div class="w-10 h-10 rounded-full bg-purple-600 text-white font-bold text-sm flex items-center justify-center shrink-0">
+              S
+            </div>
+            <div>
+              <h4 class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Sinta Dewi</h4>
+              <p class="text-xs text-slate-500 dark:text-slate-400">Siswa SMAN 3 Surabaya</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION 4: FAQ ================= -->
+  <section id="faq" class="py-20 lg:py-28 bg-white dark:bg-[#0B1329] border-t border-slate-100 dark:border-slate-800 transition-colors">
+    <div class="w-full max-w-4xl mx-auto px-6">
+      
+      <!-- Section Header -->
+      <div class="text-center space-y-3 mb-12">
+        <span class="inline-block px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-900/40 text-[#0066FF] dark:text-blue-400 text-xs font-bold tracking-wider uppercase">
+          FAQ
+        </span>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight">
+          Pertanyaan yang Sering Ditanyakan
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+          Belum menemukan jawabannya? <a href="mailto:support@eduapp.id" class="text-[#0066FF] dark:text-blue-400 underline font-semibold">Hubungi support@eduapp.id</a>
+        </p>
+      </div>
+
+      <!-- FAQ Accordions (matching screenshot eduapp-faq) -->
+      <div class="space-y-4">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item border border-slate-200 dark:border-slate-700/80 rounded-2xl overflow-hidden bg-white dark:bg-slate-800/60 transition-all">
+          <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-bold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-[#0066FF] transition-colors">
+            <span>Apakah EduApp gratis?</span>
+            <div class="faq-icon w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300 flex items-center justify-center text-xs shrink-0 transition-transform">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700/50 pt-3">
+            Ya, EduApp 100% gratis untuk seluruh siswa Indonesia! Kami berdedikasi membangun komunitas belajar yang cerdas sesuai subtema INVENTION 2026 tanpa biaya langganan apapun.
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item border border-slate-200 dark:border-slate-700/80 rounded-2xl overflow-hidden bg-white dark:bg-slate-800/60 transition-all">
+          <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-bold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-[#0066FF] transition-colors">
+            <span>Apakah data nilai saya aman?</span>
+            <div class="faq-icon w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300 flex items-center justify-center text-xs shrink-0 transition-transform">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700/50 pt-3">
+            Sangat aman. EduApp menerapkan arsitektur client-side storage (localStorage browser). Data nilai, catatan, dan tryout kamu disimpan secara privat di perangkatmu dan tidak pernah dijual atau disebarkan.
+          </div>
+        </div>
+
+        <!-- FAQ 3 (Open by Default like in screenshot) -->
+        <div class="faq-item border border-blue-500/40 dark:border-blue-500/60 rounded-2xl overflow-hidden bg-white dark:bg-slate-800/80 shadow-sm transition-all">
+          <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-bold text-xs sm:text-sm text-[#0066FF] dark:text-blue-400 transition-colors">
+            <span>Apakah bisa dipakai untuk semua jurusan?</span>
+            <div class="faq-icon w-7 h-7 rounded-full bg-[#0066FF] text-white flex items-center justify-center text-xs shrink-0 transition-transform rotate-45">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+          </button>
+          <div class="faq-content px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/50 pt-3">
+            Bisa! EduApp mendukung semua jurusan di PTN, baik Saintek (IPA) maupun Soshum (IPS). Database kami mencakup 50+ PTN terkemuka dengan passing grade dan daya tampung terverifikasi.
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item border border-slate-200 dark:border-slate-700/80 rounded-2xl overflow-hidden bg-white dark:bg-slate-800/60 transition-all">
+          <button class="faq-trigger w-full px-6 py-4 flex items-center justify-between text-left font-bold text-xs sm:text-sm text-slate-900 dark:text-white hover:text-[#0066FF] transition-colors">
+            <span>Apakah bisa diakses lewat HP?</span>
+            <div class="faq-icon w-7 h-7 rounded-full bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300 flex items-center justify-center text-xs shrink-0 transition-transform">
+              <i class="fa-solid fa-plus"></i>
+            </div>
+          </button>
+          <div class="faq-content hidden px-6 pb-5 text-xs sm:text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-slate-700/50 pt-3">
+            Tentu saja! Desain EduApp sepenuhnya responsif dengan navigasi mobile yang fleksibel, sehingga kamu bisa mencatat nilai atau menjalankan timer Pomodoro langsung dari ponsel pintar.
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= SECTION 5: CTA BANNER ================= -->
+  <section class="py-16 lg:py-24 bg-white dark:bg-[#070D1E] transition-colors">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      
+      <!-- Big Gradient Card (matching screenshot eduapp-cta-footer) -->
+      <div class="cta-card-gradient rounded-[36px] p-8 sm:p-14 lg:p-16 text-center text-white shadow-2xl relative overflow-hidden">
+        <!-- Glow effects -->
+        <div class="absolute -top-24 -right-24 w-80 h-80 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-80 h-80 bg-indigo-400/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto space-y-4">
+          <h2 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
+            Siap Masuk PTN Impianmu?
+          </h2>
+          <p class="text-sm sm:text-base text-blue-100 font-normal leading-relaxed">
+            Daftar sekarang, gratis. Tanpa kartu kredit. Mulai analisis nilai dan raih kampus impian.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+            <a href="login.html?mode=signup" class="px-6 py-3.5 rounded-2xl bg-white text-[#0066FF] font-bold text-xs sm:text-sm shadow-xl hover:bg-blue-50 transition-all flex items-center space-x-2 active:scale-95">
+              <span>Daftar Sekarang</span>
+              <i class="fa-solid fa-arrow-right text-xs"></i>
+            </a>
+            <a href="login.html" class="px-6 py-3.5 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/30 text-white font-bold text-xs sm:text-sm transition-all">
+              Sudah punya akun? Masuk
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#070D1E] text-slate-400 pt-16 pb-12 border-t border-slate-800">
+    <div class="w-full max-w-7xl mx-auto px-6">
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-800">
+        
+        <!-- Brand & Description (2 cols on lg) -->
+        <div class="lg:col-span-2 space-y-4">
+          <a href="home.html" class="flex items-center space-x-2.5">
+            <div class="w-9 h-9 rounded-xl bg-[#0066FF] text-white flex items-center justify-center font-bold text-lg shadow-md">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="text-2xl font-extrabold tracking-tight text-white">EduApp</span>
+          </a>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed max-w-sm">
+            Platform analisis nilai dan kesiapan PTN untuk siswa SMA/SMK di seluruh Indonesia.
+          </p>
+          <div class="flex items-center space-x-3 pt-2">
+            <a href="#" class="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-blue-600 hover:text-white text-slate-400 flex items-center justify-center transition-colors text-xs">
+              <i class="fa-brands fa-linkedin-in"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-pink-600 hover:text-white text-slate-400 flex items-center justify-center transition-colors text-xs">
+              <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-red-600 hover:text-white text-slate-400 flex items-center justify-center transition-colors text-xs">
+              <i class="fa-brands fa-youtube"></i>
+            </a>
+            <a href="#" class="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700 hover:text-white text-slate-400 flex items-center justify-center transition-colors text-xs">
+              <i class="fa-brands fa-tiktok"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Links Col 1: Produk -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Produk</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#fitur" class="hover:text-white transition-colors">Fitur</a></li>
+            <li><a href="#cara-kerja" class="hover:text-white transition-colors">Cara Kerja</a></li>
+            <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="login.html" class="hover:text-white transition-colors">Masuk</a></li>
+          </ul>
+        </div>
+
+        <!-- Links Col 2: Perusahaan -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Perusahaan</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Tentang Kami</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Karier</a></li>
+            <li><a href="mailto:support@eduapp.id" class="hover:text-white transition-colors">Kontak</a></li>
+          </ul>
+        </div>
+
+        <!-- Links Col 3: Legal -->
+        <div class="space-y-3">
+          <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Legal</h4>
+          <ul class="space-y-2 text-xs sm:text-sm">
+            <li><a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Syarat &amp; Ketentuan</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Cookie</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Lisensi</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>&copy; 2026 EduApp. Seluruh hak cipta dilindungi.</p>
+        <p class="flex items-center space-x-1">
+          <span>Dibuat dengan</span>
+          <i class="fa-solid fa-heart text-blue-500"></i>
+          <span>di Indonesia &bull; INVENTION 2026</span>
+        </p>
+      </div>
+
+    </div>
+  </footer>
+
+
+  <!-- jQuery & Theme Script -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="js/storage.js"></script>
+  <script>
+    $(document).ready(function () {
+      // 1. Periksa status auth pengguna
+      const authUser = StorageService.getAuthUser();
+      if (authUser) {
+        $('#nav-auth-guest').addClass('hidden');
+        $('#nav-auth-user').removeClass('hidden').addClass('flex');
+      }
+
+      // 2. Mobile Nav Toggle
+      $('#btn-mobile-nav').on('click', function () {
+        $('#mobile-nav-menu').toggleClass('hidden');
+      });
+
+      $('.mobile-link').on('click', function () {
+        $('#mobile-nav-menu').addClass('hidden');
+      });
+
+      // 3. Theme Toggle Switcher
+      $('#btn-theme-toggle').on('click', function () {
+        const current = StorageService.getTheme();
+        const nextTheme = current === 'dark' ? 'light' : 'dark';
+        StorageService.setTheme(nextTheme);
+      });
+
+      // 4. Interactive Accordion FAQ
+      $('.faq-trigger').on('click', function () {
+        const parent = $(this).closest('.faq-item');
+        const content = parent.find('.faq-content');
+        const icon = parent.find('.faq-icon');
+
+        if (content.hasClass('hidden')) {
+          // Tutup accordion lain jika ingin mode single expand
+          $('.faq-content').addClass('hidden');
+          $('.faq-icon').removeClass('rotate-45 bg-[#0066FF] text-white').addClass('bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300');
+          $('.faq-item').removeClass('border-blue-500/40 dark:border-blue-500/60 shadow-sm');
+          
+          content.removeClass('hidden');
+          icon.addClass('rotate-45 bg-[#0066FF] text-white').removeClass('bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300');
+          parent.addClass('border-blue-500/40 dark:border-blue-500/60 shadow-sm');
+        } else {
+          content.addClass('hidden');
+          icon.removeClass('rotate-45 bg-[#0066FF] text-white').addClass('bg-blue-50 dark:bg-blue-900/30 text-[#0066FF] dark:text-blue-300');
+          parent.removeClass('border-blue-500/40 dark:border-blue-500/60 shadow-sm');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

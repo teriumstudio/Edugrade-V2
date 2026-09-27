@@ -900,4 +900,40 @@ function setupOCREvents() {
     renderTabSemua();
     showToast('Hasil pemindaian OCR berhasil diterapkan ke seluruh semester!', 'success');
   });
+
+  // Tombol Batal saat pemindaian OCR sedang berlangsung
+  $(document).on('click', '#btn-cancel-ocr-scan, #btn-cancel-ocr-modal', function () {
+    OCRScannerService.cancelScan();
+    $('#ocr-scan-progress-box').addClass('hidden');
+    $('#ocr-scan-results-box').addClass('hidden');
+    $('#btn-apply-ocr-data').addClass('hidden');
+    $('#ocr-initial-view').removeClass('hidden');
+    $('#modal-ocr-scanner').addClass('hidden').removeClass('flex');
+  });
+
+  // Explicit close handler untuk semua modal di halaman Analisa Nilai
+  $(document).on('click', '#modal-ocr-scanner .btn-close-modal', function () {
+    OCRScannerService.cancelScan();
+    $('#ocr-scan-progress-box').addClass('hidden');
+    $('#ocr-scan-results-box').addClass('hidden');
+    $('#btn-apply-ocr-data').addClass('hidden');
+    $('#ocr-initial-view').removeClass('hidden');
+    $('#modal-ocr-scanner').addClass('hidden').removeClass('flex');
+  });
+
+  $(document).on('click', '#modal-rapor-subject .btn-close-modal', function () {
+    $('#modal-rapor-subject').addClass('hidden').removeClass('flex');
+  });
+
+  $(document).on('click', '#modal-tka .btn-close-modal', function () {
+    $('#modal-tka').addClass('hidden').removeClass('flex');
+  });
+
+  $(document).on('click', '#modal-utbk .btn-close-modal', function () {
+    $('#modal-utbk').addClass('hidden').removeClass('flex');
+  });
+
+  $(document).on('click', '#modal-ptn-selector .btn-close-modal', function () {
+    $('#modal-ptn-selector').addClass('hidden').removeClass('flex');
+  });
 }

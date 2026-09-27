@@ -6,6 +6,24 @@
   <title>Dashboard — EduGrade v1.0 | Platform Analytics & Student Tools</title>
   <meta name="description" content="EduGrade v1.0 — Platform Analytics & Student Tools untuk lomba INVENTION 2026. Subtema: Building Smarter Communities Through Digital Learning.">
   
+  <!-- Synchronous Theme & Profile Preloader (Eliminates Dark Mode Flash & Identity Flicker) -->
+  <script>
+    (function() {
+      try {
+        var theme = localStorage.getItem('edugrade_theme');
+        if (theme === 'dark' || (!theme && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+        var rawProfile = localStorage.getItem('edugrade_profile');
+        window.__INITIAL_PROFILE__ = rawProfile ? JSON.parse(rawProfile) : { nama: 'Bhisma', kelas: 'XII IPA' };
+      } catch(e) {
+        window.__INITIAL_PROFILE__ = { nama: 'Bhisma', kelas: 'XII IPA' };
+      }
+    })();
+  </script>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -33,7 +51,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="bg-[#F0F4F9] dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased transition-colors duration-200">
+<body class="bg-[#F0F4F9] dark:bg-[#0b1329] text-slate-800 dark:text-slate-100 min-h-screen flex flex-col antialiased">
 
   <!-- WRAPPER UTAMA DENGAN SOLID PRIMARY SIDEBAR -->
   <div class="flex flex-1 min-h-screen">
@@ -95,6 +113,18 @@
           <button data-modal-trigger="guide" class="w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium text-left">
             <i class="fa-solid fa-circle-question w-5 text-center mr-3"></i>
             <span>Guide</span>
+          </button>
+
+          <!-- 6. Beranda (Landing Page) -->
+          <a href="home.html" class="flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-blue-100/75 hover:bg-white/15 hover:text-white font-medium">
+            <i class="fa-solid fa-house w-5 text-center mr-3"></i>
+            <span>Beranda</span>
+          </a>
+
+          <!-- 7. Keluar / Logout -->
+          <button type="button" class="btn-logout w-full flex items-center px-4 py-3 rounded-xl text-sm transition-all duration-150 text-rose-200 hover:bg-rose-500/20 hover:text-white font-medium text-left">
+            <i class="fa-solid fa-arrow-right-from-bracket w-5 text-center mr-3"></i>
+            <span>Keluar Akun</span>
           </button>
         </nav>
       </div>
@@ -176,12 +206,12 @@
               <i class="fa-solid fa-sliders text-sm"></i>
             </button>
 
-            <!-- Floating Card Profile (Foto Profil, Nama: Bhisma, Kelas: XII IPA) -->
+            <!-- Floating Card Profile (Foto Profil, Nama, Kelas) -->
             <div data-modal-trigger="setting" class="cursor-pointer flex items-center space-x-3 bg-white dark:bg-slate-800 px-3.5 py-2 rounded-2xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:shadow-md transition-shadow">
-              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar Siswa" class="header-user-avatar w-9 h-9 rounded-full object-cover ring-2 ring-[#0066FF]/20">
+              <img id="header-user-avatar" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80" alt="Avatar Siswa" class="header-user-avatar w-9 h-9 rounded-full object-cover ring-2 ring-[#0066FF]/20">
               <div class="text-left hidden sm:block">
-                <h4 class="header-user-name text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight">Bhisma</h4>
-                <p class="header-user-class text-[11px] font-semibold text-[#0066FF] dark:text-blue-400 leading-tight">XII IPA</p>
+                <h4 class="header-user-name text-xs font-bold text-slate-800 dark:text-slate-100 leading-tight"><script>document.write(window.__INITIAL_PROFILE__?.nama || 'Bhisma')</script></h4>
+                <p class="header-user-class text-[11px] font-semibold text-[#0066FF] dark:text-blue-400 leading-tight"><script>document.write(window.__INITIAL_PROFILE__?.kelas || 'XII IPA')</script></p>
               </div>
               <i class="fa-solid fa-chevron-down text-[10px] text-slate-400 ml-1"></i>
             </div>
@@ -203,7 +233,18 @@
                 <i class="fa-solid fa-sparkles text-amber-300"></i>
                 <span>Building Smarter Communities Through Digital Learning</span>
               </div>
-              <h1 class="hero-greeting-text text-2xl lg:text-4xl font-extrabold tracking-tight">Selamat malam, Bhisma.</h1>
+              <h1 class="hero-greeting-text text-2xl lg:text-4xl font-extrabold tracking-tight">
+                <script>
+                  (function() {
+                    var h = new Date().getHours();
+                    var s = 'Selamat pagi';
+                    if (h >= 11 && h < 15) s = 'Selamat siang';
+                    else if (h >= 15 && h < 18) s = 'Selamat sore';
+                    else if (h >= 18 || h < 4) s = 'Selamat malam';
+                    document.write(s + ', ' + (window.__INITIAL_PROFILE__?.nama || 'Bhisma') + '.');
+                  })();
+                </script>
+              </h1>
               <p class="text-sm lg:text-base text-blue-100 mt-1 font-medium">Berikut progress kesiapan akademik mu</p>
             </div>
 
@@ -379,11 +420,16 @@
               *Pastikan semua data yang di masukkan benar!
             </p>
 
-            <!-- Action Buttons: Simpan & Reset Akun -->
-            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-3">
-              <button type="button" id="btn-reset-akun" class="px-4 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition-colors">
-                <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>Reset Akun
-              </button>
+            <!-- Action Buttons: Simpan & Reset Akun & Keluar -->
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-700/80 flex flex-wrap items-center justify-between gap-3">
+              <div class="flex items-center space-x-2">
+                <button type="button" id="btn-reset-akun" class="px-3.5 py-2.5 rounded-xl border border-rose-200 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-xs font-bold transition-colors">
+                  <i class="fa-solid fa-arrow-rotate-left mr-1.5"></i>Reset Data
+                </button>
+                <button type="button" class="btn-logout px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 text-xs font-bold transition-colors">
+                  <i class="fa-solid fa-arrow-right-from-bracket mr-1.5"></i>Keluar
+                </button>
+              </div>
               
               <div class="flex items-center space-x-2">
                 <button type="button" class="btn-close-modal px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 text-xs font-semibold hover:bg-slate-200 transition-colors">
@@ -406,16 +452,16 @@
 
           <div class="grid grid-cols-2 gap-4">
             <!-- Pilihan Light Theme -->
-            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="light">
-              <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-600 flex items-center justify-center text-lg mb-3">
+            <button class="btn-theme-select p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-left transition-all hover:border-blue-400" data-theme="light">
+              <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg mb-3">
                 <i class="fa-solid fa-sun"></i>
               </div>
-              <h5 class="text-sm font-bold text-slate-800">Light Theme</h5>
-              <p class="text-xs text-slate-500 mt-0.5">Modern Clean Soft-Blue</p>
+              <h5 class="text-sm font-bold text-slate-800 dark:text-slate-100">Light Theme</h5>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Modern Clean Soft-Blue</p>
             </button>
 
             <!-- Pilihan Dark Theme -->
-            <button class="btn-theme-select p-4 rounded-2xl border text-left transition-all" data-theme="dark">
+            <button class="btn-theme-select p-4 rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800/80 text-left transition-all hover:border-blue-400" data-theme="dark">
               <div class="w-10 h-10 rounded-xl bg-slate-800 text-blue-400 flex items-center justify-center text-lg mb-3">
                 <i class="fa-solid fa-moon"></i>
               </div>
@@ -495,21 +541,21 @@
 
         <!-- 2. TAB FAQ -->
         <div id="guide-pane-faq" class="guide-tab-pane hidden space-y-3.5">
-          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/80">
             <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q1: Apakah data nilai saya aman?</h5>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               <strong>A:</strong> Sangat aman. Seluruh data dimasukkan tersimpan 100% secara lokal di browser kamu (localStorage) dan tidak dikirim ke server luar mana pun.
             </p>
           </div>
 
-          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/80">
             <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q2: Dari mana sumber data keketatan PTN diperoleh?</h5>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               <strong>A:</strong> Data daya tampung dan peminat dihimpun secara terintegrasi dari portal resmi SNPMB Kemendikbudristek.
             </p>
           </div>
 
-          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-750">
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-800/80">
             <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm mb-1">Q3: Bagaimana fitur Simulasi OCR bekerja?</h5>
             <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
               <strong>A:</strong> Fitur ini menggunakan pemroses data client-side untuk membaca sampel dokumen dan mengisi form secara otomatis sebagai bentuk demonstrasi sistem cerdas.
@@ -520,7 +566,7 @@
         <!-- 3. TAB TUTORIAL -->
         <div id="guide-pane-tutorial" class="guide-tab-pane hidden space-y-3.5">
           <div class="flex items-start space-x-3">
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/60 text-[#0066FF] dark:text-blue-300 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
             <div>
               <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 1: Input atau Pindai Data Nilai</h5>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Buka menu Analisa Nilai, lalu ketikkan nilai akademikmu atau gunakan fitur pemindai/preset contoh rapor untuk mengisi data secara cepat.</p>
@@ -528,7 +574,7 @@
           </div>
 
           <div class="flex items-start space-x-3">
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/60 text-[#0066FF] dark:text-blue-300 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
             <div>
               <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 2: Pilih Target PTN &amp; Program Studi</h5>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Tentukan universitas dan jurusan impian pada PTN Matchmaker untuk mengukur rasio keketatan dan peta persaingan.</p>
@@ -536,7 +582,7 @@
           </div>
 
           <div class="flex items-start space-x-3">
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/60 text-[#0066FF] dark:text-blue-300 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
             <div>
               <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 3: Tinjau Indeks Kesiapan</h5>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Sistem akan menganalisis tren perkembangan nilai serta menghitung Indeks Kesiapan Akademik kamu secara otomatis.</p>
@@ -544,7 +590,7 @@
           </div>
 
           <div class="flex items-start space-x-3">
-            <span class="w-6 h-6 rounded-full bg-blue-100 text-[#0066FF] font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+            <span class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/60 text-[#0066FF] dark:text-blue-300 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
             <div>
               <h5 class="font-bold text-slate-800 dark:text-slate-100 text-xs sm:text-sm">Step 4: Manfaatkan Alat Pelajar</h5>
               <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Gunakan koleksi Student Tools (Pomodoro, Pembersih Teks, Generator Sitasi, Perencana Jadwal) untuk membantu tugas harianmu.</p>
@@ -585,7 +631,7 @@
 
           <form id="form-guide-feedback" class="space-y-3 pt-2">
             <span class="text-xs font-bold text-slate-700 dark:text-slate-200 block">Kirim Masukan &amp; Feedback Juri</span>
-            <textarea class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Tuliskan catatan atau apresiasi untuk pengembang EduGrade..." required></textarea>
+            <textarea class="w-full px-3 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-slate-800 dark:text-white text-xs focus:ring-2 focus:ring-blue-500 focus:outline-none" rows="3" placeholder="Tuliskan catatan atau apresiasi untuk pengembang EduGrade..." required></textarea>
             <button type="submit" class="px-4 py-2 bg-[#0066FF] hover:bg-blue-700 text-white rounded-xl text-xs font-bold transition-colors">
               Kirim Feedback
             </button>
@@ -595,7 +641,7 @@
       </div>
 
       <!-- Modal Footer -->
-      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-850 flex justify-end">
+      <div class="px-6 py-4 border-t border-slate-100 dark:border-slate-700/80 bg-slate-50 dark:bg-slate-800/90 flex justify-end">
         <button class="btn-close-modal px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold hover:bg-slate-300 transition-colors">
           Tutup Panduan
         </button>

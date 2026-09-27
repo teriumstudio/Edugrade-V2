@@ -212,11 +212,37 @@ function initPembersihTool() {
 
   $('#btn-clean-symbols').off('click').on('click', function () {
     let text = input.val();
-    text = text.replace(/[\u2022\u2023\u25E6\u2043\u2219]/g, '-'); // ganti bullet aneh jadi strip standar
-    text = text.replace(/[""]/g, '"').replace(/['']/g, "'");
+    if (!text.trim()) {
+      showToast('Masukkan atau tempel teks terlebih dahulu!', 'info');
+      return;
+    }
+
+    // 1. Standarisasi tanda kutip ganda dan tunggal (curly/smart quotes & primes)
+    text = text.replace(/[\u201C\u201D\u201E\u201F\u00AB\u00BB]/g, '"')
+               .replace(/[\u2018\u2019\u201A\u201B\u0060\u00B4]/g, "'");
+
+    // 2. Standarisasi dash panjang (em-dash, en-dash, minus, horizontal bar) menjadi tanda hubung standar
+    text = text.replace(/[\u2013\u2014\u2015\u2212]/g, '-');
+
+    // 3. Standarisasi aneka bullet point & icon list menjadi tanda hubung standar (-)
+    text = text.replace(/[\u2022\u2023\u25E6\u2043\u2219\u25AA\u25AB\u25CF\u25C6\u25C7\u25B6\u25B8\u25BA\u2713\u2714\u2717\u2718\u2605\u2606\u2731\u2732]/g, '-');
+
+    // 4. Standarisasi whitespace khusus, zero-width space, invisible chars & replacement char
+    text = text.replace(/[\u00A0\u2000-\u200A\u202F\u205F\u3000]/g, ' ')
+               .replace(/[\u200B-\u200D\uFEFF\u00AD\uFFFD]/g, '');
+
+    // 5. Bersihkan emoji & grafis karakter non-teks
+    text = text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu, '');
+
+    // 6. Bersihkan simbol aneh / noise karakter dari copy-paste PDF / OCR yang mengotori teks
+    text = text.replace(/[~^|\\§©®™°±¶×÷≠≤≥∞√<>#*`]/g, ' ');
+
+    // 7. Rapikan spasi berlebih hasil pembersihan karakter
+    text = text.replace(/[ \t]+/g, ' ');
+
     input.val(text);
     updateCleanerMetrics();
-    showToast('Karakter non-standar dibersihkan!');
+    showToast('Simbol non-standar, emoji, & bullet berhasil dibersihkan!', 'success');
   });
 
   $('#btn-clean-copy').off('click').on('click', function () {

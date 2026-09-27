@@ -12,7 +12,19 @@ const STORAGE_KEYS = {
   PTN_CHOICES: 'edugrade_ptn_choices',
   RECENT_TOOLS: 'edugrade_recent_tools',
   STUDY_TASKS: 'edugrade_study_tasks',
-  STREAK_DATA: 'edugrade_streak_data'
+  STREAK_DATA: 'edugrade_streak_data',
+  AUTH_USER: 'edugrade_auth_user',
+  REGISTERED_USERS: 'edugrade_registered_users'
+};
+
+// Akun Demo resmi untuk penjurian & presentasi
+const DEMO_ACCOUNT = {
+  username: 'bhisma',
+  password: 'password123',
+  nama: 'Bhisma',
+  kelas: 'XII IPA 1',
+  sekolah: 'SMAN 1 Teladan',
+  foto: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
 };
 
 // Default Sample Data (Siswa SMA/K Kurikulum Merdeka)
@@ -425,6 +437,109 @@ const StorageService = {
 
   setStudyTasks(data) {
     localStorage.setItem(STORAGE_KEYS.STUDY_TASKS, JSON.stringify(data));
+  },
+
+  // === AUTHENTICATION & DEMO USER MANAGEMENT ===
+  getDemoAccount() {
+    return DEMO_ACCOUNT;
+  },
+
+  getRegisteredUsers() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.REGISTERED_USERS);
+      return raw ? JSON.parse(raw) : [DEMO_ACCOUNT];
+    } catch (e) {
+      return [DEMO_ACCOUNT];
+    }
+  },
+
+  saveRegisteredUsers(users) {
+    localStorage.setItem(STORAGE_KEYS.REGISTERED_USERS, JSON.stringify(users));
+  },
+
+  getAuthUser() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEYS.AUTH_USER);
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  setAuthUser(user) {
+    localStorage.setItem(STORAGE_KEYS.AUTH_USER, JSON.stringify(user));
+    // Pastikan user profile juga sinkron
+    if (user) {
+      const currentProfile = this.getProfile();
+      currentProfile.nama = user.nama || currentProfile.nama;
+      if (user.kelas) currentProfile.kelas = user.kelas;
+      if (user.sekolah) currentProfile.sekolah = user.sekolah;
+      if (user.foto) currentProfile.foto = user.foto;
+      this.setProfile(currentProfile);
+    }
+  },
+
+  login(username, password) {
+    const cleanUser = (username || '').trim().toLowerCase();
+    const cleanPass = (password || '').trim();
+
+    // 1. Cek Akun Demo Utama
+    if (cleanUser === DEMO_ACCOUNT.username.toLowerCase() && cleanPass === DEMO_ACCOUNT.password) {
+      this.setAuthUser(DEMO_ACCOUNT);
+      return { success: true, user: DEMO_ACCOUNT, isDemo: true };
+    }
+
+    // 2. Cek Database Pengguna Terdaftar
+    const users = this.getRegisteredUsers();
+    const found = users.find(u => u.username.toLowerCase() === cleanUser && u.password === cleanPass);
+    if (found) {
+      this.setAuthUser(found);
+      return { success: true, user: found, isDemo: false };
+    }
+
+    return {
+      success: false,
+      message: 'Username atau password tidak cocok! Gunakan Akun Demo (bhisma / password123).'
+    };
+  },
+
+  register(username, password, nama, kelas) {
+    const cleanUser = (username || '').trim().toLowerCase();
+    const cleanPass = (password || '').trim();
+    const cleanNama = (nama || '').trim() || cleanUser;
+    const cleanKelas = (kelas || '').trim() || 'XII SMA';
+
+    if (!cleanUser || !cleanPass) {
+      return { success: false, message: 'Username dan password wajib diisi!' };
+    }
+
+    if (cleanUser.length < 3) {
+      return { success: false, message: 'Username minimal 3 karakter!' };
+    }
+
+    const users = this.getRegisteredUsers();
+    if (cleanUser === DEMO_ACCOUNT.username.toLowerCase() || users.some(u => u.username.toLowerCase() === cleanUser)) {
+      return { success: false, message: 'Username sudah digunakan, silakan pilih username lain atau gunakan Akun Demo!' };
+    }
+
+    const newUser = {
+      username: cleanUser,
+      password: cleanPass,
+      nama: cleanNama,
+      kelas: cleanKelas,
+      sekolah: 'SMAN 1 Teladan',
+      foto: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80'
+    };
+
+    users.push(newUser);
+    this.saveRegisteredUsers(users);
+    this.setAuthUser(newUser);
+
+    return { success: true, user: newUser };
+  },
+
+  logout() {
+    localStorage.removeItem(STORAGE_KEYS.AUTH_USER);
   },
 
   resetAllData() {
